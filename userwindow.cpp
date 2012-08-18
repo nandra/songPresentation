@@ -26,7 +26,8 @@ UserWindow::UserWindow(QWidget *parent) :
 	m_fileworker(0),
 	m_songActive(false),
 	m_displayWidget(new DisplayForm()),
-	m_displayActive(false)
+	m_displayActive(false),
+	m_category(new Category())
 {
 	ui->setupUi(this);
 
@@ -77,7 +78,7 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 			if (!m_fileworker) {
 				qDebug() << __FUNCTION__ << __LINE__;
 				m_fileworker = new FileWorker();
-				m_fileworker->setFileName(QDir().absolutePath() + "/data/JKS/" + songNumber + ".txt");
+				m_fileworker->setFileName(QDir().absolutePath() + "/data/" + m_category->categoryName() + "/" + songNumber + ".txt");
 				m_fileworker->cacheContent();
 				m_songActive = true;
 			}
@@ -114,6 +115,10 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 				m_displayActive = false;
 			}
 			break;
+		case Qt::Key_Asterisk:
+			m_category->nextCategory();
+			qDebug() << m_category->categoryName();
+			break;
 		}
 	}
 
@@ -149,7 +154,7 @@ void UserWindow::songSearchTimer_timeout()
 
 		if (!m_fileworker) {
 			m_fileworker = new FileWorker();
-			m_fileworker->setFileName(QDir().absolutePath() + "/data/JKS/" + songNumber + ".txt");
+			m_fileworker->setFileName(QDir().absolutePath() + "/data/" + m_category->categoryName() + "/" + songNumber + ".txt");
 			m_fileworker->cacheContent();
 			ui->songLabel->setText(m_fileworker->nextVerse());
 			ui->songNumberLabel->setText(m_lastSongNumber + " - " + QString::number(m_fileworker->actualVerse()));
@@ -258,10 +263,14 @@ Category::Category(QObject *parent) :
 
 Category::SongCategory Category::nextCategory()
 {
+	SongCategory category;
+
 	if (m_actualCategory >= m_categories.size())
 		m_actualCategory = 0;
 
-	return m_categories.value(m_actualCategory++);
+	category = m_categories.value(m_actualCategory++);
+	emit categoryChanged();
+	return category;
 }
 
 const QString Category::categoryName()

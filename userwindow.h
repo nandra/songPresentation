@@ -54,7 +54,7 @@ private:
 	bool m_songActive;
 	DisplayForm *m_displayWidget;
 	bool m_displayActive;
-	Category m_category;
+	Category *m_category;
 
 private:
 	void keyPressEvent(QKeyEvent *ev);
@@ -107,6 +107,9 @@ public:
 private:
 	QHash<int, SongCategory> m_categories;
 	int m_actualCategory;
+
+signals:
+	void categoryChanged();
 };
 
 #endif // USERWINDOW_H
