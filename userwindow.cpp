@@ -46,6 +46,12 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 			m_lastSongNumber = ev->text();
 			m_songActive = false;
 			ui->songNumberLabel->setText("");
+
+			if (m_fileworker) {
+				m_fileworker->deleteLater();
+				m_fileworker = 0;
+			}
+
 		} else {
 			m_lastSongNumber += ev->text();
 		}
@@ -63,7 +69,6 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 			if (!m_fileworker) {
 				qDebug() << __FUNCTION__ << __LINE__;
 				m_fileworker = new FileWorker();
-				qDebug() << "path:" << QDir().absolutePath();
 				m_fileworker->setFileName(QDir().absolutePath() + "/data/JKS/" + songNumber + ".txt");
 				m_fileworker->cacheContent();
 				m_songActive = true;
