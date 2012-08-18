@@ -26,6 +26,7 @@
 #include <QTextStream>
 #include <QKeyEvent>
 #include <QDir>
+#include <QHash>
 #include <QDebug>
 
 namespace Ui {
@@ -35,6 +36,7 @@ class UserWindow;
 #define SEARCH_SONG_TIMEOUT_SEC (5)
 
 class FileWorker;
+class Category;
 
 class UserWindow : public QMainWindow
 {
@@ -52,6 +54,7 @@ private:
 	bool m_songActive;
 	DisplayForm *m_displayWidget;
 	bool m_displayActive;
+	Category m_category;
 
 private:
 	void keyPressEvent(QKeyEvent *ev);
@@ -82,6 +85,28 @@ private:
 	int m_actualFilePos;
 	int m_actualVerse;
 	bool m_backWard;
+};
+
+class Category : public QObject {
+
+	Q_OBJECT
+
+public:
+	Category(QObject *parent = 0);
+	enum SongCategory {
+		JKS = 0,
+		Psalm,
+		Breviary,
+		Other,
+	};
+
+	SongCategory nextCategory();
+	SongCategory prevCategory();
+	const QString categoryName();
+
+private:
+	QHash<int, SongCategory> m_categories;
+	int m_actualCategory;
 };
 
 #endif // USERWINDOW_H

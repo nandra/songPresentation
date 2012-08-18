@@ -243,3 +243,35 @@ QString FileWorker::prevVerse()
 
 	return ret;
 }
+
+/** Category class implementation */
+
+Category::Category(QObject *parent) :
+	QObject(parent),
+	m_actualCategory(0)
+{
+	m_categories.insert(0, Category::JKS);
+	m_categories.insert(1, Category::Psalm);
+	m_categories.insert(2, Category::Breviary);
+	m_categories.insert(3, Category::Other);
+}
+
+Category::SongCategory Category::nextCategory()
+{
+	if (m_actualCategory >= m_categories.size())
+		m_actualCategory = 0;
+
+	return m_categories.value(m_actualCategory++);
+}
+
+const QString Category::categoryName()
+{
+	SongCategory category = m_categories.value(m_actualCategory);
+
+	if (category == Category::JKS) return "JKS";
+	if (category == Category::Psalm) return "Psalm";
+	if (category == Category::Breviary) return "Breviary";
+	if (category == Category::Other) return "Other";
+
+	return "";
+}
