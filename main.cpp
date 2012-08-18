@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2012 Marek Belisko <marek.belisko@open-nandra.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -17,20 +17,16 @@
 
 #include <QtGui/QApplication>
 #include "userwindow.h"
-#include "displayform.h"
 
 int main(int argc, char *argv[])
 {
-    QApplication a(argc, argv);
+	QApplication a(argc, argv);
 
-	DisplayForm f;
-	UserWindow w(&f);
+	UserWindow w;
 
-	f.setGeometry(w.geometry().width() + 50, 0, f.geometry().width(), f.geometry().height());
 	w.setGeometry(0, 0, w.geometry().width(), w.geometry().height());
 
-	f.show();
 	w.show();
 
-    return a.exec();
+	return a.exec();
 }

@@ -17,10 +17,11 @@
 
 #include "userwindow.h"
 #include "ui_userwindow.h"
+#include "displayform.h"
 
-UserWindow::UserWindow(DisplayForm *display, QWidget *parent) :
+UserWindow::UserWindow(QWidget *parent) :
 	QMainWindow(parent),
-	m_displayWidget(display),
+	m_displayWidget(new DisplayForm()),
 	ui(new Ui::UserWindow),
 	m_songSearchTimer(new QTimer(this)),
 	m_fileworker(0),
@@ -32,7 +33,12 @@ UserWindow::UserWindow(DisplayForm *display, QWidget *parent) :
 	connect(m_songSearchTimer, SIGNAL(timeout()), this, SLOT(songSearchTimer_timeout()));
 	/* clear labels */
 	ui->songLabel->clear();
+	ui->songLabel->setWordWrap(true);
 	ui->songNumberLabel->clear();
+
+	// temporarily -> will be on second screen
+	m_displayWidget->setGeometry(this->geometry().width() + 50, 0, m_displayWidget->geometry().width(), m_displayWidget->geometry().height());
+	m_displayWidget->show();
 }
 
 UserWindow::~UserWindow()
