@@ -137,7 +137,7 @@ void UserWindow::songSearchTimer_timeout()
 FileWorker::FileWorker(QObject *parent) :
 	QObject(parent),
 	m_actualVerse(0),
-	it(m_songVerses)
+	m_listIterator(m_songVerses)
 {
 }
 
@@ -184,19 +184,26 @@ void FileWorker::cacheContent()
 
 	} while (!line.isNull());
 
-	it = m_songVerses;
+	m_listIterator = m_songVerses;
 }
 
 QString FileWorker::nextVerse()
 {
 	QString ret;
-	qDebug() << "Enter:" <<  __func__ << m_actualVerse;
-	if (it.hasNext()) {
-		ret = it.next();
+
+	if (m_listIterator.hasNext()) {
+		ret = m_listIterator.next();
+		// skip first
+		if (m_backWard) {
+			if (m_listIterator.hasNext()) {
+				ret = m_listIterator.next();
+				m_backWard = false;
+			}
+		}
+
 		m_actualVerse ++;
 	}
 
-	qDebug() << "Leave:" <<  __func__ << m_actualVerse;
 	return ret;
 
 }
@@ -204,11 +211,18 @@ QString FileWorker::nextVerse()
 QString FileWorker::prevVerse()
 {
 	QString ret;
-	qDebug() << "Enter:" <<  __func__ << m_actualVerse;
-	if (it.hasPrevious()) {
-		ret = it.previous();
+
+	if (m_listIterator.hasPrevious()) {
+		ret = m_listIterator.previous();
+		if (m_actualVerse == m_songVerses.size()) {
+			if (m_listIterator.hasPrevious())
+					ret = m_listIterator.previous();
+		}
+
 		m_actualVerse --;
+		if (m_actualVerse == 1)
+			m_backWard = true;
 	}
-	qDebug() << "Leave:" <<  __func__ << m_actualVerse;
+
 	return ret;
 }

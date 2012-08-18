@@ -77,7 +77,8 @@ private:
 	QStringList m_songVerses;
 	int m_actualFilePos;
 	int m_actualVerse;
-	QListIterator<QString> it;
+	QListIterator<QString> m_listIterator;
+	bool m_backWard;
 };
 
 #endif // USERWINDOW_H
