@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2012 Marek Belisko <marek.belisko@open-nandra.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -38,14 +38,14 @@ class FileWorker;
 
 class UserWindow : public QMainWindow
 {
-    Q_OBJECT
-    
+	Q_OBJECT
+
 public:
-    explicit UserWindow(QWidget *parent = 0);
-    ~UserWindow();
-    
+	explicit UserWindow(DisplayForm *display, QWidget *parent = 0);
+	~UserWindow();
+
 private:
-    Ui::UserWindow *ui;
+	Ui::UserWindow *ui;
 	QString m_lastSongNumber;
 	QTimer *m_songSearchTimer;
 	FileWorker *m_fileworker;
@@ -53,7 +53,7 @@ private:
 	DisplayForm *m_displayWidget;
 
 private:
-    void keyPressEvent(QKeyEvent *ev);
+	void keyPressEvent(QKeyEvent *ev);
 
 private slots:
 	void songSearchTimer_timeout();
