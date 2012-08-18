@@ -81,7 +81,6 @@ private:
 	QStringList m_songVerses;
 	int m_actualFilePos;
 	int m_actualVerse;
-	QListIterator<QString> m_listIterator;
 	bool m_backWard;
 };
 
