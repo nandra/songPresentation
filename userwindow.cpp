@@ -173,7 +173,7 @@ void UserWindow::songSearchTimer_timeout()
 
 void UserWindow::categoryChanged()
 {
-	ui->categoryLabel->setText("Category:" + m_category->categoryName());
+	ui->categoryLabel->setText("Category : " + m_category->categoryName());
 }
 
 /** FileWorker class implementation */
