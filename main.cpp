@@ -17,11 +17,19 @@
 
 #include <QtGui/QApplication>
 #include "userwindow.h"
+#include "displayform.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    UserWindow w;
+
+	DisplayForm f;
+	UserWindow w(&f);
+
+	f.setGeometry(w.geometry().width() + 50, 0, f.geometry().width(), f.geometry().height());
+	w.setGeometry(0, 0, w.geometry().width(), w.geometry().height());
+
+	f.show();
 	w.show();
 
     return a.exec();

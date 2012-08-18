@@ -18,8 +18,9 @@
 #include "userwindow.h"
 #include "ui_userwindow.h"
 
-UserWindow::UserWindow(QWidget *parent) :
+UserWindow::UserWindow(DisplayForm *display, QWidget *parent) :
     QMainWindow(parent),
+	m_displayWidget(display),
 	ui(new Ui::UserWindow),
 	m_songSearchTimer(new QTimer(this)),
 	m_fileworker(0),

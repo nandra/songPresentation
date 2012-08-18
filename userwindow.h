@@ -18,6 +18,8 @@
 #ifndef USERWINDOW_H
 #define USERWINDOW_H
 
+#include "displayform.h"
+
 #include <QMainWindow>
 #include <QTimer>
 #include <QFile>
@@ -48,6 +50,7 @@ private:
 	QTimer *m_songSearchTimer;
 	FileWorker *m_fileworker;
 	bool m_songActive;
+	DisplayForm *m_displayWidget;
 
 private:
     void keyPressEvent(QKeyEvent *ev);
