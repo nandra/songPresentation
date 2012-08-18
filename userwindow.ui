@@ -17,10 +17,10 @@
    <widget class="QLabel" name="songLabel">
     <property name="geometry">
      <rect>
-      <x>9</x>
-      <y>63</y>
+      <x>11</x>
+      <y>51</y>
       <width>421</width>
-      <height>221</height>
+      <height>251</height>
      </rect>
     </property>
     <property name="text">
@@ -30,8 +30,8 @@
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>10</y>
+      <x>11</x>
+      <y>12</y>
       <width>421</width>
       <height>24</height>
      </rect>
@@ -54,7 +54,7 @@
      <item>
       <widget class="QCheckBox" name="displayActiveCheckBox">
        <property name="text">
-        <string>Blank</string>
+        <string>Display Active</string>
        </property>
       </widget>
      </item>

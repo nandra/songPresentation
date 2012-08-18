@@ -116,9 +116,11 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 			if (!m_displayActive) {
 				m_displayWidget->setMainText(ui->songLabel->text());
 				m_displayActive = true;
+				ui->displayActiveCheckBox->setChecked(true);
 			} else {
 				m_displayWidget->setMainText("");
 				m_displayActive = false;
+				ui->displayActiveCheckBox->setChecked(false);
 			}
 			break;
 		case Qt::Key_Asterisk:
