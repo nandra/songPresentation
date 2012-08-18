@@ -51,6 +51,7 @@ private:
 	FileWorker *m_fileworker;
 	bool m_songActive;
 	DisplayForm *m_displayWidget;
+	bool m_displayActive;
 
 private:
 	void keyPressEvent(QKeyEvent *ev);

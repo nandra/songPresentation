@@ -25,6 +25,7 @@ UserWindow::UserWindow(DisplayForm *display, QWidget *parent) :
 	m_songSearchTimer(new QTimer(this)),
 	m_fileworker(0),
 	m_songActive(false)
+	m_displayActive(false)
 {
     ui->setupUi(this);
 
@@ -77,8 +78,11 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 
 			QString text = m_fileworker->nextVerse();
 			qDebug() << text;
-			if (!text.isEmpty())
+			if (!text.isEmpty()) {
 				ui->songLabel->setText(text);
+				if (m_displayActive)
+					m_displayWidget->setMainText(text);
+			}
 			break;
 		}
 		case Qt::Key_Minus:
@@ -87,12 +91,22 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 				return;
 			QString text = m_fileworker->prevVerse();
 			qDebug() << text;
-			if (!text.isEmpty())
+			if (!text.isEmpty()) {
 				ui->songLabel->setText(text);
+				if (m_displayActive)
+					m_displayWidget->setMainText(text);
+			}
 			break;
 		}
 		case Qt::Key_Enter:
 			// display on display dialog
+			if (!m_displayActive) {
+				m_displayWidget->setMainText(ui->songLabel->text());
+				m_displayActive = true;
+			} else {
+				m_displayWidget->setMainText("");
+				m_displayActive = false;
+			}
 			break;
 		}
 	}
