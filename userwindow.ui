@@ -27,18 +27,38 @@
      <string>TextLabel</string>
     </property>
    </widget>
-   <widget class="QLabel" name="songNumberLabel">
+   <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>190</x>
-      <y>20</y>
-      <width>56</width>
-      <height>17</height>
+      <x>10</x>
+      <y>10</y>
+      <width>421</width>
+      <height>24</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Number</string>
-    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="categoryLabel">
+       <property name="text">
+        <string>TextLabel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="songNumberLabel">
+       <property name="text">
+        <string>Number</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="displayActiveCheckBox">
+       <property name="text">
+        <string>Blank</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
  </widget>

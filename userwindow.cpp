@@ -36,10 +36,16 @@ UserWindow::UserWindow(QWidget *parent) :
 	ui->songLabel->clear();
 	ui->songLabel->setWordWrap(true);
 	ui->songNumberLabel->clear();
+	ui->categoryLabel->clear();
 
 	// temporarily -> will be on second screen
 	m_displayWidget->setGeometry(this->geometry().width() + 50, 0, m_displayWidget->geometry().width(), m_displayWidget->geometry().height());
 	m_displayWidget->show();
+
+	// default category text
+	categoryChanged();
+	// connect on change
+	connect(m_category, SIGNAL(categoryChanged()), this, SLOT(categoryChanged()));
 }
 
 UserWindow::~UserWindow()
@@ -161,6 +167,11 @@ void UserWindow::songSearchTimer_timeout()
 		}
 		m_songActive = true;
 	}
+}
+
+void UserWindow::categoryChanged()
+{
+	ui->categoryLabel->setText("Category:" + m_category->categoryName());
 }
 
 /** FileWorker class implementation */
