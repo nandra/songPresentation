@@ -21,11 +21,11 @@
 
 UserWindow::UserWindow(QWidget *parent) :
 	QMainWindow(parent),
-	m_displayWidget(new DisplayForm()),
 	ui(new Ui::UserWindow),
 	m_songSearchTimer(new QTimer(this)),
 	m_fileworker(0),
 	m_songActive(false),
+	m_displayWidget(new DisplayForm()),
 	m_displayActive(false)
 {
 	ui->setupUi(this);
