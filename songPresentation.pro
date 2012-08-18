@@ -11,9 +11,12 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        userwindow.cpp
+        userwindow.cpp \
+    displayform.cpp
 
-HEADERS  += userwindow.h
+HEADERS  += userwindow.h \
+    displayform.h
 
 
-FORMS    += userwindow.ui
+FORMS    += userwindow.ui \
+    displayform.ui

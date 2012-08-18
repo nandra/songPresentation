@@ -1,4 +1,4 @@
-/* 
+/*
  * Copyright (C) 2012 Marek Belisko <marek.belisko@open-nandra.com>
  *
  * This program is free software: you can redistribute it and/or modify
@@ -19,15 +19,15 @@
 #include "ui_userwindow.h"
 
 UserWindow::UserWindow(DisplayForm *display, QWidget *parent) :
-    QMainWindow(parent),
+	QMainWindow(parent),
 	m_displayWidget(display),
 	ui(new Ui::UserWindow),
 	m_songSearchTimer(new QTimer(this)),
 	m_fileworker(0),
-	m_songActive(false)
+	m_songActive(false),
 	m_displayActive(false)
 {
-    ui->setupUi(this);
+	ui->setupUi(this);
 
 	connect(m_songSearchTimer, SIGNAL(timeout()), this, SLOT(songSearchTimer_timeout()));
 	/* clear labels */
@@ -37,7 +37,7 @@ UserWindow::UserWindow(DisplayForm *display, QWidget *parent) :
 
 UserWindow::~UserWindow()
 {
-    delete ui;
+	delete ui;
 }
 
 void UserWindow::keyPressEvent(QKeyEvent *ev)
