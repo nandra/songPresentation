@@ -118,7 +118,8 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 				m_displayActive = true;
 				ui->displayActiveCheckBox->setChecked(true);
 			} else {
-				m_displayWidget->setMainText("");
+				m_displayWidget->setMainText();
+				m_displayWidget->setTitleText();
 				m_displayActive = false;
 				ui->displayActiveCheckBox->setChecked(false);
 			}
@@ -133,7 +134,12 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 	if (m_songActive) {
 		if (m_fileworker) {
 			/* update verse number */
-			ui->songNumberLabel->setText(m_lastSongNumber + " - " + QString::number(m_fileworker->actualVerse()));
+			QString title = QString("%1 - %2").arg(m_lastSongNumber).arg(QString::number(m_fileworker->actualVerse()));
+			ui->songNumberLabel->setText(title);
+			if (m_displayActive)
+				m_displayWidget->setTitleText(title);
+			else
+				m_displayWidget->setTitleText();
 		}
 	} else {
 		ui->songNumberLabel->setText(m_lastSongNumber);

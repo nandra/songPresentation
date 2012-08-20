@@ -10,8 +10,10 @@ DisplayForm::DisplayForm(QWidget *parent) :
 	/* set white font */
 	QFont f( "Arial", 28, QFont::Bold);
 	ui->displayLabel->setFont(f);
-
 	ui->displayLabel->setStyleSheet("QLabel { color: white; }");
+
+	ui->titleLabel->setFont(f);
+	ui->titleLabel->setStyleSheet("QLabel { color: white; }");
 
 	/* set back color for this widget */
 	this->setStyleSheet("QWidget { background-color: black }");
@@ -24,7 +26,7 @@ DisplayForm::~DisplayForm()
 
 void DisplayForm::setTitleText(const QString &text)
 {
-
+	ui->titleLabel->setText(text);
 }
 
 void DisplayForm::setMainText(const QString &text)

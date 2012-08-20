@@ -14,8 +14,8 @@ class DisplayForm : public QWidget
 public:
 	explicit DisplayForm(QWidget *parent = 0);
 	~DisplayForm();
-	void setTitleText(const QString& text);
-	void setMainText(const QString& text);
+	void setTitleText(const QString& text = "");
+	void setMainText(const QString& text = "");
 
 private:
 	Ui::DisplayForm *ui;
