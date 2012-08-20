@@ -271,7 +271,8 @@ Category::Category(QObject *parent) :
 	m_categories.insert(0, Category::JKS);
 	m_categories.insert(1, Category::Psalm);
 	m_categories.insert(2, Category::Breviary);
-	m_categories.insert(3, Category::Other);
+	m_categories.insert(3, Category::Youth);
+	m_categories.insert(4, Category::Other);
 }
 
 Category::SongCategory Category::nextCategory()
@@ -293,6 +294,7 @@ const QString Category::categoryName()
 	if (category == Category::JKS) return "JKS";
 	if (category == Category::Psalm) return "Psalm";
 	if (category == Category::Breviary) return "Breviary";
+	if (category == Category::Youth) return "Youth";
 	if (category == Category::Other) return "Other";
 
 	return "";

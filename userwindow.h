@@ -98,6 +98,7 @@ public:
 		JKS = 0,
 		Psalm,
 		Breviary,
+		Youth,
 		Other,
 	};
 
