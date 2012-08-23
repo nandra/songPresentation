@@ -16,17 +16,23 @@
  */
 
 #include <QtGui/QApplication>
+#include <QDesktopWidget>
 #include "userwindow.h"
+#include "displayform.h"
 
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 
-	UserWindow w;
+	DisplayForm d;
+	UserWindow w(&d);
 
-	w.setGeometry(0, 0, w.geometry().width(), w.geometry().height());
+	QDesktopWidget *desktop = QApplication::desktop();
+	QRect rect = desktop->screenGeometry(1);
+	d.move(rect.x(), rect.y());
 
 	w.show();
+	d.showFullScreen();
 
 	return a.exec();
 }
