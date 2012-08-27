@@ -1,0 +1,2 @@
+./songPresentation -qws -display "Multi: LinuxFb:/dev/fb3 LinuxFb:/dev/fb0" -nomouse
+

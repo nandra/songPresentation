@@ -19,13 +19,13 @@
 #include "ui_userwindow.h"
 #include "displayform.h"
 
-UserWindow::UserWindow(QWidget *parent) :
+UserWindow::UserWindow(DisplayForm *display, QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::UserWindow),
 	m_songSearchTimer(new QTimer(this)),
 	m_fileworker(0),
 	m_songActive(false),
-	m_displayWidget(new DisplayForm()),
+	m_displayWidget(display),
 	m_displayActive(false),
 	m_category(new Category())
 {
@@ -37,10 +37,6 @@ UserWindow::UserWindow(QWidget *parent) :
 	ui->songLabel->setWordWrap(true);
 	ui->songNumberLabel->clear();
 	ui->categoryLabel->clear();
-
-	// temporarily -> will be on second screen
-	m_displayWidget->setGeometry(this->geometry().width() + 50, 0, m_displayWidget->geometry().width(), m_displayWidget->geometry().height());
-	m_displayWidget->show();
 
 	// default category text
 	categoryChanged();

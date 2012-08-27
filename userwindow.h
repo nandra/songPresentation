@@ -43,7 +43,7 @@ class UserWindow : public QMainWindow
 	Q_OBJECT
 
 public:
-	explicit UserWindow(QWidget *parent = 0);
+	explicit UserWindow(DisplayForm *display, QWidget *parent = 0);
 	~UserWindow();
 
 private:
