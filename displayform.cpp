@@ -12,7 +12,7 @@ DisplayForm::DisplayForm(QWidget *parent) :
 
 	ui->displayLabel->clear();
 	/* set white font */
-	QFont f( "Arial", 56, QFont::Bold);
+	QFont f("Arial", 56, QFont::Bold);
 	ui->displayLabel->setFont(f);
 	ui->displayLabel->setStyleSheet("QLabel { color: white; }");
 
