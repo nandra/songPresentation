@@ -6,6 +6,10 @@ DisplayForm::DisplayForm(QWidget *parent) :
 	ui(new Ui::DisplayForm)
 {
 	ui->setupUi(this);
+	// set flags to be fullscreen and no controls
+	Qt::WindowFlags flags( Qt::Window | Qt::FramelessWindowHint);
+	setWindowFlags(flags);
+
 	ui->displayLabel->clear();
 	/* set white font */
 	QFont f( "Arial", 56, QFont::Bold);

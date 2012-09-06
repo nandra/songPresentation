@@ -28,11 +28,11 @@ int main(int argc, char *argv[])
 	UserWindow w(&d);
 
 	QDesktopWidget *desktop = QApplication::desktop();
-	QRect rect = desktop->screenGeometry(1);
-	d.move(rect.x(), rect.y());
+	QRect rect = desktop->screenGeometry(0);
+	d.move(rect.width(), 0);
 
-	w.show();
-	d.showFullScreen();
+	w.showFullScreen();
+	d.showMaximized();
 
 	return a.exec();
 }
