@@ -18,6 +18,7 @@
 #include "userwindow.h"
 #include "ui_userwindow.h"
 #include "displayform.h"
+#include <QTextCodec>
 
 UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, QWidget *parent) :
 	QMainWindow(parent),
@@ -217,6 +218,9 @@ void FileWorker::cacheContent()
 
 
 	QTextStream stream(m_file);
+	QTextCodec *codec = QTextCodec::codecForName("UTF-8");
+	stream.setCodec(codec);
+
 	QString verse;
 	QString line;
 	int lineNumber = 0;
