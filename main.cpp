@@ -24,8 +24,17 @@ int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 
+	QString dataPath;
+	for (int i = 0; i < argc; i++ ) {
+		if (QString(argv[i]).contains("-dataPath")) {
+			dataPath = QString(argv[i]).mid(strlen("-dataPath="));
+			qDebug() << "Data path:" << dataPath;
+			break;
+		}
+	}
+
 	DisplayForm d;
-	UserWindow w(&d);
+	UserWindow w(&d, dataPath);
 
 	QDesktopWidget *desktop = QApplication::desktop();
 	QRect rect = desktop->screenGeometry(0);

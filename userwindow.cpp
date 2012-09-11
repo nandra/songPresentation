@@ -19,7 +19,7 @@
 #include "ui_userwindow.h"
 #include "displayform.h"
 
-UserWindow::UserWindow(DisplayForm *display, QWidget *parent) :
+UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::UserWindow),
 	m_songSearchTimer(new QTimer(this)),
@@ -27,7 +27,8 @@ UserWindow::UserWindow(DisplayForm *display, QWidget *parent) :
 	m_songActive(false),
 	m_displayWidget(display),
 	m_displayActive(false),
-	m_category(new Category())
+	m_category(new Category()),
+	m_dataPath(dataPath)
 {
 	ui->setupUi(this);
 
@@ -80,7 +81,7 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 			if (!m_fileworker) {
 				qDebug() << __FUNCTION__ << __LINE__;
 				m_fileworker = new FileWorker();
-				m_fileworker->setFileName(QDir().absolutePath() + "/data/" + m_category->categoryName() + "/" + songNumber + ".txt");
+				m_fileworker->setFileName(absoluteDataPath(songNumber));
 				m_fileworker->cacheContent();
 				m_songActive = true;
 			}
@@ -164,7 +165,7 @@ void UserWindow::songSearchTimer_timeout()
 
 		if (!m_fileworker) {
 			m_fileworker = new FileWorker();
-			m_fileworker->setFileName(QDir().absolutePath() + "/data/" + m_category->categoryName() + "/" + songNumber + ".txt");
+			m_fileworker->setFileName(absoluteDataPath(songNumber));
 			m_fileworker->cacheContent();
 			ui->songLabel->setText(m_fileworker->nextVerse());
 			ui->songNumberLabel->setText(m_lastSongNumber + " - " + QString::number(m_fileworker->actualVerse()));
@@ -176,6 +177,11 @@ void UserWindow::songSearchTimer_timeout()
 void UserWindow::categoryChanged()
 {
 	ui->categoryLabel->setText("Category : " + m_category->categoryName());
+}
+
+QString UserWindow::absoluteDataPath(const QString& songNumber)
+{
+	return m_dataPath + "/" + m_category->categoryName() + "/" + songNumber + ".txt";
 }
 
 /** FileWorker class implementation */

@@ -43,7 +43,7 @@ class UserWindow : public QMainWindow
 	Q_OBJECT
 
 public:
-	explicit UserWindow(DisplayForm *display, QWidget *parent = 0);
+	explicit UserWindow(DisplayForm *display, const QString& dataPath, QWidget *parent = 0);
 	~UserWindow();
 
 private:
@@ -55,9 +55,11 @@ private:
 	DisplayForm *m_displayWidget;
 	bool m_displayActive;
 	Category *m_category;
+	QString m_dataPath;
 
 private:
 	void keyPressEvent(QKeyEvent *ev);
+	QString absoluteDataPath(const QString &songNumber);
 
 private slots:
 	void songSearchTimer_timeout();
