@@ -31,8 +31,8 @@ int main(int argc, char *argv[])
 	QRect rect = desktop->screenGeometry(0);
 	d.move(rect.width(), 0);
 
-	w.showFullScreen();
 	d.showMaximized();
+	w.showFullScreen();
 
 	return a.exec();
 }
