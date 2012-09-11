@@ -19,6 +19,11 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QLabel" name="categoryLabel">
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>TextLabel</string>
         </property>
@@ -26,6 +31,11 @@
       </item>
       <item>
        <widget class="QLabel" name="songNumberLabel">
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Number</string>
         </property>
@@ -33,6 +43,11 @@
       </item>
       <item>
        <widget class="QCheckBox" name="displayActiveCheckBox">
+        <property name="font">
+         <font>
+          <pointsize>20</pointsize>
+         </font>
+        </property>
         <property name="text">
          <string>Display Active</string>
         </property>
@@ -42,6 +57,11 @@
     </item>
     <item>
      <widget class="QLabel" name="songLabel">
+      <property name="font">
+       <font>
+        <pointsize>18</pointsize>
+       </font>
+      </property>
       <property name="text">
        <string>TextLabel</string>
       </property>
