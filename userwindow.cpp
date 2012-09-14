@@ -20,6 +20,13 @@
 #include "displayform.h"
 #include <QTextCodec>
 
+#include <string.h>
+#include <unistd.h>
+#include <netdb.h>
+#include <netinet/in.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+
 UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::UserWindow),
@@ -312,4 +319,70 @@ const QString Category::categoryName()
 	if (category == Category::Other) return "Other";
 
 	return "";
+}
+
+void ProjectorControl::powerOn()
+{
+	if (m_enabled) {
+		return;
+	}
+
+	changeStatus(true);
+	m_enabled = true;
+}
+
+void ProjectorControl::standby()
+{
+	changeStatus(false);
+	m_enabled = false;
+}
+
+void ProjectorControl::changeStatus(bool enable)
+{
+	hostent *host;
+	sockaddr_in serverSock;
+	int sock;
+	int port;
+#define BUFSIZE 256
+	char buf[BUFSIZE];
+	int size;
+
+	host = gethostbyname("169.254.100.100");
+	port = 10000;
+
+	if ((sock = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1) {
+		qDebug() << "Cannot open sock";
+		return;
+	}
+
+	serverSock.sin_family = AF_INET;
+	serverSock.sin_port = htons(port);
+	memcpy(&(serverSock.sin_addr), host->h_addr, host->h_length);
+
+	if (connect(sock, (sockaddr *)&serverSock, sizeof(serverSock)) == -1) {
+		qDebug() << "Cannot connect";
+		return;
+	}
+
+	if ((size = send(sock, "\r", 2, 0)) == -1) {
+		qDebug() << "Cannot send passwd";
+		return;
+	}
+
+	size = recv(sock, buf, BUFSIZE, 0);
+
+	if ((size = send(sock, "\r", 2, 0)) == -1) {
+		qDebug() << "Cannot send - ENTER";
+		return;
+	}
+	QByteArray cmd = enable ? "C00\r" : "C01\r";
+	if ((size = send(sock, cmd.data(), cmd.size() + 1, 0)) == -1) {
+		qDebug() << "Cannot send - cmd";
+		return;
+	}
+
+	size = recv(sock, buf, BUFSIZE, 0);
+	size = recv(sock, buf, BUFSIZE, 0);
+
+	close(sock);
 }

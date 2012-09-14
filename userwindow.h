@@ -116,4 +116,20 @@ signals:
 	void categoryChanged();
 };
 
+class ProjectorControl {
+public:
+	ProjectorControl() : m_enabled(true) {};
+	void powerOn();
+	void standby();
+	bool status() { return m_enabled; }
+
+private:
+	bool m_enabled;
+
+private:
+	void changeStatus(bool enable);
+
+
+};
+
 #endif // USERWINDOW_H
