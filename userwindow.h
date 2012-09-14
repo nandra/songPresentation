@@ -37,6 +37,7 @@ class UserWindow;
 
 class FileWorker;
 class Category;
+class ProjectorControl;
 
 class UserWindow : public QMainWindow
 {
@@ -56,6 +57,8 @@ private:
 	bool m_displayActive;
 	Category *m_category;
 	QString m_dataPath;
+	ProjectorControl *m_control;
+	bool m_confirmPowerOff;
 
 private:
 	void keyPressEvent(QKeyEvent *ev);

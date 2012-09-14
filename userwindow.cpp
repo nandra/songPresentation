@@ -36,7 +36,8 @@ UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, QWidget *p
 	m_displayWidget(display),
 	m_displayActive(false),
 	m_category(new Category()),
-	m_dataPath(dataPath)
+	m_dataPath(dataPath),
+	m_confirmPowerOff(false)
 {
 	ui->setupUi(this);
 
@@ -51,6 +52,8 @@ UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, QWidget *p
 	categoryChanged();
 	// connect on change
 	connect(m_category, SIGNAL(categoryChanged()), this, SLOT(categoryChanged()));
+
+	m_control = new ProjectorControl();
 }
 
 UserWindow::~UserWindow()
@@ -60,6 +63,12 @@ UserWindow::~UserWindow()
 
 void UserWindow::keyPressEvent(QKeyEvent *ev)
 {
+	// press any key to cancel projector power off
+	if (m_confirmPowerOff && ev->key() != Qt::Key_Enter) {
+		m_confirmPowerOff = false;
+		ui->songLabel->setText("");
+	}
+
 	if (ev->key() >= Qt::Key_0 && ev->key() <= Qt::Key_9) {
 		/* active file worker => open new song */
 		if (m_songActive) {
@@ -117,6 +126,13 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 			break;
 		}
 		case Qt::Key_Enter:
+			// disable projector
+			if (m_confirmPowerOff) {
+				ui->songLabel->setText("Switching off projector");
+				m_control->standby();
+				m_confirmPowerOff = false;
+			}
+
 			// display on display dialog
 			if (!m_displayActive) {
 				m_displayWidget->setMainText(ui->songLabel->text());
@@ -128,11 +144,22 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 				m_displayActive = false;
 				ui->displayActiveCheckBox->setChecked(false);
 			}
+
 			break;
 		case Qt::Key_Asterisk:
 			m_category->nextCategory();
 			qDebug() << m_category->categoryName();
 			break;
+		case Qt::Key_Slash:
+			// projector enabled => standby
+			if (m_control->status()) {
+				// wait for confirmation
+				m_confirmPowerOff = true;
+				ui->songLabel->setText("Are you sure you want to power off projector?\n " \
+					"Press Enter to confirm, press any key to cancel");
+			} else {
+				m_control->powerOn();
+			}
 		}
 	}
 
