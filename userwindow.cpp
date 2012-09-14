@@ -189,13 +189,15 @@ QString UserWindow::absoluteDataPath(const QString& songNumber)
 
 FileWorker::FileWorker(QObject *parent) :
 	QObject(parent),
+	m_file(NULL),
 	m_actualVerse(0)
 {
 }
 
 FileWorker::~FileWorker()
 {
-	m_file->close();
+	if (m_file)
+		m_file->close();
 }
 
 void FileWorker::setFileName(const QString &fileName)
