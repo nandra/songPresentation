@@ -19,6 +19,9 @@
 #include "ui_userwindow.h"
 #include "displayform.h"
 #include <QTextCodec>
+#include <QUrl>
+#include <QNetworkRequest>
+#include <QNetworkReply>
 
 #include <string.h>
 #include <unistd.h>
@@ -54,6 +57,8 @@ UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, QWidget *p
 	connect(m_category, SIGNAL(categoryChanged()), this, SLOT(categoryChanged()));
 
 	m_control = new ProjectorControl();
+	connect(m_control, SIGNAL(stateChanged(QString)), this, SLOT(on_control_stateChanged(QString)));
+	m_control->periodicStateCheck();
 }
 
 UserWindow::~UserWindow()
@@ -64,7 +69,7 @@ UserWindow::~UserWindow()
 void UserWindow::keyPressEvent(QKeyEvent *ev)
 {
 	// press any key to cancel projector power off
-	if (m_confirmPowerOff && ev->key() != Qt::Key_Enter) {
+	if (m_confirmPowerOff && ((ev->key() != Qt::Key_Enter) && (ev->key() != Qt::Key_Return))) {
 		m_confirmPowerOff = false;
 		ui->songLabel->setText("");
 	}
@@ -138,12 +143,12 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 			if (!m_displayActive) {
 				m_displayWidget->setMainText(ui->songLabel->text());
 				m_displayActive = true;
-				ui->displayActiveCheckBox->setChecked(true);
+				ui->displayActiveLabel->setText("ACTIVE");
 			} else {
 				m_displayWidget->setMainText();
 				m_displayWidget->setTitleText();
 				m_displayActive = false;
-				ui->displayActiveCheckBox->setChecked(false);
+				ui->displayActiveLabel->setText("INACTIVE");
 			}
 
 			break;
@@ -153,14 +158,15 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 			break;
 		case Qt::Key_Slash:
 			// projector enabled => standby
-			if (m_control->status()) {
+			if (m_control->status() == ProjectorControl::ON) {
 				// wait for confirmation
 				m_confirmPowerOff = true;
 				ui->songLabel->setText("Are you sure you want to power off projector?\n " \
 					"Press Enter to confirm, press any key to cancel");
-			} else {
+			} else if (m_control->status() == ProjectorControl::OFF) {
 				m_control->powerOn();
 			}
+			break;
 		}
 	}
 
@@ -218,6 +224,11 @@ void UserWindow::categoryChanged()
 QString UserWindow::absoluteDataPath(const QString& songNumber)
 {
 	return m_dataPath + "/" + m_category->categoryName() + "/" + songNumber + ".txt";
+}
+
+void UserWindow::on_control_stateChanged(const QString& state)
+{
+	ui->projectorStateLabel->setText(state);
 }
 
 /** FileWorker class implementation */
@@ -349,20 +360,34 @@ const QString Category::categoryName()
 	return "";
 }
 
+ProjectorControl::ProjectorControl() :
+	m_state(UNKNOWN)
+{
+	m_checkTimer = new QTimer();
+	connect(m_checkTimer, SIGNAL(timeout()), this, SLOT(on_checkTimer_timeout()));
+
+	m_manager = new QNetworkAccessManager(this);
+
+	connect(m_manager, SIGNAL(finished(QNetworkReply*)),
+			this, SLOT(on_manager_replyFinished(QNetworkReply*)));
+
+	qRegisterMetaType<ProjectorControl::ProjectorState>("ProjectorControl::ProjectorState");
+}
+
 void ProjectorControl::powerOn()
 {
-	if (m_enabled) {
+	if (m_state == ON) {
 		return;
 	}
 
 	changeStatus(true);
-	m_enabled = true;
+	emit stateChanged("Starting");
 }
 
 void ProjectorControl::standby()
 {
 	changeStatus(false);
-	m_enabled = false;
+	emit stateChanged("Cooling");
 }
 
 void ProjectorControl::changeStatus(bool enable)
@@ -387,7 +412,7 @@ void ProjectorControl::changeStatus(bool enable)
 	serverSock.sin_port = htons(port);
 	memcpy(&(serverSock.sin_addr), host->h_addr, host->h_length);
 
-	if (connect(sock, (sockaddr *)&serverSock, sizeof(serverSock)) == -1) {
+	if (::connect(sock, (sockaddr *)&serverSock, sizeof(serverSock)) == -1) {
 		qDebug() << "Cannot connect";
 		return;
 	}
@@ -413,4 +438,58 @@ void ProjectorControl::changeStatus(bool enable)
 	size = recv(sock, buf, BUFSIZE, 0);
 
 	close(sock);
+}
+
+void ProjectorControl::periodicStateCheck()
+{
+	m_checkTimer->start(5000);
+	on_checkTimer_timeout();
+}
+
+void ProjectorControl::on_checkTimer_timeout()
+{
+	// fetch webpage
+	m_manager->get(QNetworkRequest(QUrl("http://169.254.100.100/power.htm")));
+}
+
+void ProjectorControl::on_manager_replyFinished(QNetworkReply* pReply)
+{
+	QByteArray data = pReply->readAll();
+	QString str(data);
+
+	QString pattern("<div class=\"info\" id=\"pow\">");
+	QString text;
+	if (str.contains(pattern)) {
+		int index = str.indexOf(pattern);
+		int closeBracket = str.indexOf("<", index + 1);
+
+		text = str.mid(index + pattern.size(), closeBracket - index - pattern.size());
+	}
+
+	ProjectorState state = UNKNOWN;
+
+	if (text == "ON") {
+		state = ON;
+	} else if (text == "OFF") {
+		state = OFF;
+	} else if (text == "On starting up") {
+		state = ON_STARTING_UP;
+	} else if (text == "On cooling down") {
+		state = ON_COOLING_DOWN;
+	}
+
+	qDebug() << state << m_state;
+
+	if (state != m_state) {
+		m_state = state;
+		QString text;
+		switch (state) {
+		case ON: text = "ON"; break;
+		case OFF: text = "OFF"; break;
+		case ON_COOLING_DOWN: text = "Cooling"; break;
+		case ON_STARTING_UP: text = "Starting"; break;
+		default: text = "UNKNOWN"; break;
+		}
+		emit stateChanged(text);
+	}
 }

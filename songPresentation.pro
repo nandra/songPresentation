@@ -4,19 +4,19 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui network
 
 TARGET = songPresentation
 TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        userwindow.cpp \
-    displayform.cpp
+		userwindow.cpp \
+	displayform.cpp
 
 HEADERS  += userwindow.h \
-    displayform.h
+	displayform.h
 
 
 FORMS    += userwindow.ui \
-    displayform.ui
+	displayform.ui

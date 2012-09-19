@@ -28,6 +28,7 @@
 #include <QDir>
 #include <QHash>
 #include <QDebug>
+#include <QNetworkAccessManager>
 
 namespace Ui {
 class UserWindow;
@@ -67,6 +68,7 @@ private:
 private slots:
 	void songSearchTimer_timeout();
 	void categoryChanged();
+	void on_control_stateChanged(const QString &state);
 };
 
 class FileWorker : public QObject {
@@ -119,19 +121,38 @@ signals:
 	void categoryChanged();
 };
 
-class ProjectorControl {
+class ProjectorControl : public QObject {
+	Q_OBJECT
 public:
-	ProjectorControl() : m_enabled(true) {};
+	ProjectorControl();
+
+	enum ProjectorState {
+		ON = 0,
+		OFF,
+		ON_COOLING_DOWN,
+		ON_STARTING_UP,
+		UNKNOWN
+	};
+
 	void powerOn();
 	void standby();
-	bool status() { return m_enabled; }
+	ProjectorState status() { return m_state; }
+	void periodicStateCheck();
 
 private:
-	bool m_enabled;
+	ProjectorState m_state;
+	QTimer *m_checkTimer;
+	QNetworkAccessManager *m_manager;
 
 private:
 	void changeStatus(bool enable);
 
+private slots:
+	void on_checkTimer_timeout();
+	void on_manager_replyFinished(QNetworkReply* pReply);
+
+signals:
+	void stateChanged(const QString& state);
 
 };
 

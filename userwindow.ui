@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>484</width>
-    <height>321</height>
+    <width>753</width>
+    <height>490</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,12 +16,12 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <item>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="0" column="0">
        <widget class="QLabel" name="categoryLabel">
         <property name="font">
          <font>
-          <pointsize>20</pointsize>
+          <pointsize>24</pointsize>
          </font>
         </property>
         <property name="text">
@@ -29,11 +29,11 @@
         </property>
        </widget>
       </item>
-      <item>
+      <item row="0" column="1">
        <widget class="QLabel" name="songNumberLabel">
         <property name="font">
          <font>
-          <pointsize>20</pointsize>
+          <pointsize>48</pointsize>
          </font>
         </property>
         <property name="text">
@@ -41,15 +41,27 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QCheckBox" name="displayActiveCheckBox">
+      <item row="0" column="2">
+       <widget class="QLabel" name="projectorStateLabel">
         <property name="font">
          <font>
-          <pointsize>20</pointsize>
+          <pointsize>24</pointsize>
          </font>
         </property>
         <property name="text">
-         <string>Display Active</string>
+         <string>TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="3">
+       <widget class="QLabel" name="displayActiveLabel">
+        <property name="font">
+         <font>
+          <pointsize>24</pointsize>
+         </font>
+        </property>
+        <property name="text">
+         <string>TextLabel</string>
         </property>
        </widget>
       </item>
