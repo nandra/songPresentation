@@ -12,7 +12,7 @@ DisplayForm::DisplayForm(QWidget *parent) :
 
 	ui->displayLabel->clear();
 	/* set white font */
-	QFont f("Times New Roman", 48);
+	QFont f("Cambria", 48);
 
 	ui->displayLabel->setFont(f);
 	ui->displayLabel->setStyleSheet("QLabel { color: white; }");
