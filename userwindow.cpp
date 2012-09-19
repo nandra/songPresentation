@@ -50,6 +50,7 @@ UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, QWidget *p
 	ui->songLabel->setWordWrap(true);
 	ui->songNumberLabel->clear();
 	ui->categoryLabel->clear();
+	ui->projectorStateLabel->clear();
 
 	// default category text
 	categoryChanged();
