@@ -145,11 +145,13 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 			if (!m_displayActive) {
 				m_displayWidget->setMainText(ui->songLabel->text());
 				m_displayActive = true;
+				ui->displayActiveLabel->setStyleSheet("QLabel { color: green; font: bold;}");
 				ui->displayActiveLabel->setText("ACTIVE");
 			} else {
 				m_displayWidget->setMainText();
 				m_displayWidget->setTitleText();
 				m_displayActive = false;
+				ui->displayActiveLabel->setStyleSheet("QLabel { color: red; font: bold;}");
 				ui->displayActiveLabel->setText("INACTIVE");
 			}
 
