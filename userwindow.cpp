@@ -45,6 +45,7 @@ UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, QWidget *p
 	ui->setupUi(this);
 
 	connect(m_songSearchTimer, SIGNAL(timeout()), this, SLOT(songSearchTimer_timeout()));
+
 	/* clear labels */
 	ui->songLabel->clear();
 	ui->songLabel->setWordWrap(true);
@@ -53,11 +54,12 @@ UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, QWidget *p
 	ui->projectorStateLabel->clear();
 	ui->displayActiveLabel->clear();
 
-	// default category text
+	/* default category text */
 	categoryChanged();
-	// connect on change
-	connect(m_category, SIGNAL(categoryChanged()), this, SLOT(categoryChanged()));
+	/* connect on categoty change */
+	connect(m_category, SIGNAL(changed()), this, SLOT(categoryChanged()));
 
+	/* projector control handling */
 	m_control = new ProjectorControl();
 	connect(m_control, SIGNAL(stateChanged(QString)), this, SLOT(on_control_stateChanged(QString)));
 	m_control->periodicStateCheck();
@@ -70,7 +72,7 @@ UserWindow::~UserWindow()
 
 void UserWindow::keyPressEvent(QKeyEvent *ev)
 {
-	// press any key to cancel projector power off
+	/* press any key to cancel projector power off */
 	if (m_confirmPowerOff && ((ev->key() != Qt::Key_Enter) && (ev->key() != Qt::Key_Return))) {
 		m_confirmPowerOff = false;
 		ui->songLabel->setText("");
@@ -134,14 +136,14 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 		}
 		case Qt::Key_Enter:
 		case Qt::Key_Return:
-			// disable projector
+			/* disable projector confirmation */
 			if (m_confirmPowerOff) {
 				ui->songLabel->setText("Switching off projector");
 				m_control->standby();
 				m_confirmPowerOff = false;
 			}
 
-			// display on display dialog
+			/* display song on display dialog */
 			if (!m_displayActive) {
 				m_displayWidget->setMainText(ui->songLabel->text());
 				m_displayActive = true;
@@ -161,9 +163,9 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 			qDebug() << m_category->categoryName();
 			break;
 		case Qt::Key_Slash:
-			// projector enabled => standby
+			/* projector enabled => standby */
 			if (m_control->status() == ProjectorControl::ON) {
-				// wait for confirmation
+				/* wait for confirmation */
 				m_confirmPowerOff = true;
 				ui->songLabel->setText("Are you sure you want to power off projector?\n " \
 					"Press Enter to confirm, press any key to cancel");
@@ -196,10 +198,10 @@ void UserWindow::songSearchTimer_timeout()
 {
 	m_songSearchTimer->stop();
 
-	// activate song if not active yet
+	/* activate song if not active yet */
 	if (!m_songActive) {
 		qDebug() << __FUNCTION__ << __LINE__;
-		// open last entered song number
+		/* open last entered song number */
 		qDebug() << "Opening song:" << m_lastSongNumber;
 
 		QString songNumber = m_lastSongNumber.rightJustified(3, '0');
@@ -347,7 +349,7 @@ Category::SongCategory Category::nextCategory()
 		m_actualCategory = 0;
 
 	category = m_categories.value(m_actualCategory++);
-	emit categoryChanged();
+	emit changed();
 	return category;
 }
 
@@ -374,8 +376,6 @@ ProjectorControl::ProjectorControl() :
 
 	connect(m_manager, SIGNAL(finished(QNetworkReply*)),
 			this, SLOT(on_manager_replyFinished(QNetworkReply*)));
-
-	qRegisterMetaType<ProjectorControl::ProjectorState>("ProjectorControl::ProjectorState");
 }
 
 void ProjectorControl::powerOn()
@@ -446,13 +446,13 @@ void ProjectorControl::changeStatus(bool enable)
 
 void ProjectorControl::periodicStateCheck()
 {
-	m_checkTimer->start(5000);
+	m_checkTimer->start(PERIODIC_STATE_CHECK_SECS * 1000);
 	on_checkTimer_timeout();
 }
 
 void ProjectorControl::on_checkTimer_timeout()
 {
-	// fetch webpage
+	/* fetch webpage */
 	m_manager->get(QNetworkRequest(QUrl("http://169.254.100.100/power.htm")));
 }
 

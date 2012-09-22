@@ -72,17 +72,38 @@ private slots:
 };
 
 class FileWorker : public QObject {
-
 	Q_OBJECT
-
 public:
 	FileWorker(QObject *parent = 0);
 	~FileWorker();
+	/**
+	 * @brief setFileName
+	 * @param fileName
+	 */
 	void setFileName(const QString& fileName);
+	/**
+	 * @brief nextVerse
+	 * @return
+	 */
 	QString nextVerse();
+	/**
+	 * @brief prevVerse
+	 * @return
+	 */
 	QString prevVerse();
+	/**
+	 * @brief firstVerse
+	 * @return
+	 */
 	QString firstVerse() { return m_songVerses.at(0); }
+	/**
+	 * @brief cacheContent
+	 */
 	void cacheContent();
+	/**
+	 * @brief actualVerse
+	 * @return
+	 */
 	int actualVerse() { return m_actualVerse; }
 
 private:
@@ -96,9 +117,7 @@ private:
 };
 
 class Category : public QObject {
-
 	Q_OBJECT
-
 public:
 	Category(QObject *parent = 0);
 	enum SongCategory {
@@ -109,8 +128,20 @@ public:
 		Other,
 	};
 
+	/**
+	 * @brief nextCategory
+	 * @return
+	 */
 	SongCategory nextCategory();
+	/**
+	 * @brief prevCategory
+	 * @return
+	 */
 	SongCategory prevCategory();
+	/**
+	 * @brief categoryName
+	 * @return
+	 */
 	const QString categoryName();
 
 private:
@@ -118,8 +149,11 @@ private:
 	int m_actualCategory;
 
 signals:
-	void categoryChanged();
+	void changed();
 };
+
+/* periodic projector state check */
+#define PERIODIC_STATE_CHECK_SECS 5
 
 class ProjectorControl : public QObject {
 	Q_OBJECT
@@ -133,10 +167,22 @@ public:
 		ON_STARTING_UP,
 		UNKNOWN
 	};
-
+	/**
+	 * @brief powerOn - enable projector
+	 */
 	void powerOn();
+	/**
+	 * @brief standby - stadby projector
+	 */
 	void standby();
+	/**
+	 * @brief status - projector state
+	 * @return - return actual projector state
+	 */
 	ProjectorState status() { return m_state; }
+	/**
+	 * @brief periodicStateCheck - start periodic state checking
+	 */
 	void periodicStateCheck();
 
 private:
@@ -153,7 +199,6 @@ private slots:
 
 signals:
 	void stateChanged(const QString& state);
-
 };
 
 #endif // USERWINDOW_H
