@@ -173,6 +173,13 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 				m_control->powerOn();
 			}
 			break;
+		case Qt::Key_Backspace:
+			/* clean last added number when song is not active */
+			if (m_songActive)
+				return;
+
+			m_lastSongNumber.chop(1);
+			break;
 		}
 	}
 
