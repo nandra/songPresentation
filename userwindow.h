@@ -68,7 +68,7 @@ private:
 private slots:
 	void songSearchTimer_timeout();
 	void categoryChanged();
-	void on_control_stateChanged(const QString &state);
+	void control_stateChanged(const QString &state);
 };
 
 class FileWorker : public QObject {

@@ -61,7 +61,7 @@ UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, QWidget *p
 
 	/* projector control handling */
 	m_control = new ProjectorControl();
-	connect(m_control, SIGNAL(stateChanged(QString)), this, SLOT(on_control_stateChanged(QString)));
+	connect(m_control, SIGNAL(stateChanged(QString)), this, SLOT(control_stateChanged(QString)));
 	m_control->periodicStateCheck();
 }
 
@@ -232,7 +232,7 @@ QString UserWindow::absoluteDataPath(const QString& songNumber)
 	return m_dataPath + "/" + m_category->categoryName() + "/" + songNumber + ".txt";
 }
 
-void UserWindow::on_control_stateChanged(const QString& state)
+void UserWindow::control_stateChanged(const QString& state)
 {
 	ui->projectorStateLabel->setText(state);
 }
