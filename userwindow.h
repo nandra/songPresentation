@@ -148,6 +148,11 @@ public:
 	 * @return
 	 */
 	const QString categoryName();
+	/**
+	 * @brief displayTitle
+	 * @return
+	 */
+	bool displayTitle();
 
 private:
 	QHash<int, SongCategory> m_categories;

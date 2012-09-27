@@ -188,10 +188,10 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 			/* update verse number */
 			QString title = QString("%1 - %2").arg(m_lastSongNumber).arg(QString::number(m_fileworker->actualVerse()));
 			ui->songNumberLabel->setText(title);
-			if (m_displayActive)
-				m_displayWidget->setTitleText(title);
-			else
-				m_displayWidget->setTitleText();
+			if (!m_category->displayTitle() || !m_displayActive)
+				title = "";
+
+			m_displayWidget->setTitleText(title);
 		}
 	} else {
 		ui->songNumberLabel->setText(m_lastSongNumber);
@@ -384,6 +384,16 @@ const QString Category::categoryName()
 	if (category == Category::Other) return tr("Other");
 
 	return "";
+}
+
+bool Category::displayTitle()
+{
+	SongCategory category = m_categories.value(m_actualCategory);
+
+	if (category == Category::JKS)
+		return true;
+
+	return false;
 }
 
 ProjectorControl::ProjectorControl() :
