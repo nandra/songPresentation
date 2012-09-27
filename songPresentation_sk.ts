@@ -49,7 +49,7 @@
         <location filename="userwindow.cpp" line="415"/>
         <location filename="userwindow.cpp" line="514"/>
         <source>Cooling</source>
-        <translation>Chladím</translation>
+        <translation>Vypínam</translation>
     </message>
     <message>
         <location filename="userwindow.cpp" line="512"/>
