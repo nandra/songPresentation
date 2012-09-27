@@ -16,6 +16,7 @@ public:
 	~DisplayForm();
 	void setTitleText(const QString& text = "");
 	void setMainText(const QString& text = "");
+	void setAlignment(Qt::Alignment alignment);
 
 private:
 	Ui::DisplayForm *ui;

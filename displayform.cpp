@@ -38,3 +38,8 @@ void DisplayForm::setMainText(const QString &text)
 {
 	ui->displayLabel->setText(text);
 }
+
+void DisplayForm::setAlignment(Qt::Alignment alignment)
+{
+	ui->displayLabel->setAlignment(alignment);
+}

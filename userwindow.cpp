@@ -145,6 +145,7 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 
 			/* display song on display dialog */
 			if (!m_displayActive) {
+				//m_displayWidget->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 				m_displayWidget->setMainText(ui->songLabel->text());
 				m_displayActive = true;
 				ui->displayActiveLabel->setStyleSheet("QLabel { color: green; font: bold;}");
