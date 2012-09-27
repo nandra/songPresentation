@@ -138,7 +138,6 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 		case Qt::Key_Return:
 			/* disable projector confirmation */
 			if (m_confirmPowerOff) {
-				ui->songLabel->setText(tr("Switching off projector"));
 				m_control->standby();
 				m_confirmPowerOff = false;
 				return;
