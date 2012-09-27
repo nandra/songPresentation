@@ -17,12 +17,17 @@
 
 #include <QtGui/QApplication>
 #include <QDesktopWidget>
+#include <QTranslator>
 #include "userwindow.h"
 #include "displayform.h"
 
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
+
+	QTranslator translator;
+	translator.load("songPresentation_sk");
+	a.installTranslator(&translator);
 
 	QString dataPath;
 	for (int i = 0; i < argc; i++ ) {

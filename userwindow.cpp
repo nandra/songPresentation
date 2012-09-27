@@ -148,27 +148,27 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 				m_displayWidget->setMainText(ui->songLabel->text());
 				m_displayActive = true;
 				ui->displayActiveLabel->setStyleSheet("QLabel { color: green; font: bold;}");
-				ui->displayActiveLabel->setText("ACTIVE");
+				ui->displayActiveLabel->setText(tr("ACTIVE"));
 			} else {
 				m_displayWidget->setMainText();
 				m_displayWidget->setTitleText();
 				m_displayActive = false;
 				ui->displayActiveLabel->setStyleSheet("QLabel { color: red; font: bold;}");
-				ui->displayActiveLabel->setText("INACTIVE");
+				ui->displayActiveLabel->setText(tr("INACTIVE"));
 			}
 
 			break;
 		case Qt::Key_Asterisk:
 			m_category->nextCategory();
-			qDebug() << m_category->categoryName();
+			qDebug() << m_category->categoryNameByPath();
 			break;
 		case Qt::Key_Slash:
 			/* projector enabled => standby */
 			if (m_control->status() == ProjectorControl::ON) {
 				/* wait for confirmation */
 				m_confirmPowerOff = true;
-				ui->songLabel->setText("Are you sure you want to power off projector?\n " \
-					"Press Enter to confirm, press any key to cancel");
+				ui->songLabel->setText(tr("Are you sure you want to power off projector?\n " \
+					"Press Enter to confirm, press any key to cancel"));
 			} else if (m_control->status() == ProjectorControl::OFF) {
 				m_control->powerOn();
 			}
@@ -231,12 +231,12 @@ void UserWindow::songSearchTimer_timeout()
 
 void UserWindow::categoryChanged()
 {
-	ui->categoryLabel->setText("Category : " + m_category->categoryName());
+	ui->categoryLabel->setText(tr("Category") + ":" + m_category->categoryName());
 }
 
 QString UserWindow::absoluteDataPath(const QString& songNumber)
 {
-	return m_dataPath + "/" + m_category->categoryName() + "/" + songNumber + ".txt";
+	return m_dataPath + "/" + m_category->categoryNameByPath() + "/" + songNumber + ".txt";
 }
 
 void UserWindow::control_stateChanged(const QString& state)
@@ -360,7 +360,7 @@ Category::SongCategory Category::nextCategory()
 	return category;
 }
 
-const QString Category::categoryName()
+const QString Category::categoryNameByPath()
 {
 	SongCategory category = m_categories.value(m_actualCategory);
 
@@ -369,6 +369,19 @@ const QString Category::categoryName()
 	if (category == Category::Breviary) return "Breviary";
 	if (category == Category::Youth) return "Youth";
 	if (category == Category::Other) return "Other";
+
+	return "";
+}
+
+const QString Category::categoryName()
+{
+	SongCategory category = m_categories.value(m_actualCategory);
+
+	if (category == Category::JKS) return tr("JKS");
+	if (category == Category::Psalm) return tr("Psalm");
+	if (category == Category::Breviary) return tr("Breviary");
+	if (category == Category::Youth) return tr("Youth");
+	if (category == Category::Other) return tr("Other");
 
 	return "";
 }
@@ -392,13 +405,13 @@ void ProjectorControl::powerOn()
 	}
 
 	changeStatus(true);
-	emit stateChanged("Starting");
+	emit stateChanged(tr("Starting"));
 }
 
 void ProjectorControl::standby()
 {
 	changeStatus(false);
-	emit stateChanged("Cooling");
+	emit stateChanged(tr("Cooling"));
 }
 
 void ProjectorControl::changeStatus(bool enable)
@@ -495,11 +508,11 @@ void ProjectorControl::on_manager_replyFinished(QNetworkReply* pReply)
 		m_state = state;
 		QString text;
 		switch (state) {
-		case ON: text = "ON"; break;
-		case OFF: text = "OFF"; break;
-		case ON_COOLING_DOWN: text = "Cooling"; break;
-		case ON_STARTING_UP: text = "Starting"; break;
-		default: text = "UNKNOWN"; break;
+		case ON: text = tr("ON"); break;
+		case OFF: text = tr("OFF"); break;
+		case ON_COOLING_DOWN: text = tr("Cooling"); break;
+		case ON_STARTING_UP: text = tr("Starting"); break;
+		default: text = tr("UNKNOWN"); break;
 		}
 		emit stateChanged(text);
 	}

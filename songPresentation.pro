@@ -8,7 +8,7 @@ QT       += core gui network
 
 TARGET = songPresentation
 TEMPLATE = app
-
+TRANSLATIONS = songPresentation_sk.ts
 
 SOURCES += main.cpp\
 		userwindow.cpp \
@@ -20,3 +20,4 @@ HEADERS  += userwindow.h \
 
 FORMS    += userwindow.ui \
 	displayform.ui
+

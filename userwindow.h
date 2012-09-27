@@ -139,6 +139,11 @@ public:
 	 */
 	SongCategory prevCategory();
 	/**
+	 * @brief categoryNameByPath
+	 * @return
+	 */
+	const QString categoryNameByPath();
+	/**
 	 * @brief categoryName
 	 * @return
 	 */
