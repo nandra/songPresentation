@@ -4,27 +4,27 @@
 <context>
     <name>Category</name>
     <message>
-        <location filename="userwindow.cpp" line="380"/>
+        <location filename="userwindow.cpp" line="381"/>
         <source>JKS</source>
         <translation>JKS</translation>
     </message>
     <message>
-        <location filename="userwindow.cpp" line="381"/>
+        <location filename="userwindow.cpp" line="382"/>
         <source>Psalm</source>
         <translation>Žalmy</translation>
     </message>
     <message>
-        <location filename="userwindow.cpp" line="382"/>
+        <location filename="userwindow.cpp" line="383"/>
         <source>Breviary</source>
         <translation>Breviár</translation>
     </message>
     <message>
-        <location filename="userwindow.cpp" line="383"/>
+        <location filename="userwindow.cpp" line="384"/>
         <source>Youth</source>
         <translation>Mládežnícke</translation>
     </message>
     <message>
-        <location filename="userwindow.cpp" line="384"/>
+        <location filename="userwindow.cpp" line="385"/>
         <source>Other</source>
         <translation>Ostatné</translation>
     </message>
@@ -40,29 +40,29 @@
 <context>
     <name>ProjectorControl</name>
     <message>
-        <location filename="userwindow.cpp" line="408"/>
-        <location filename="userwindow.cpp" line="514"/>
+        <location filename="userwindow.cpp" line="409"/>
+        <location filename="userwindow.cpp" line="515"/>
         <source>Starting</source>
         <translation>Štartujem</translation>
     </message>
     <message>
-        <location filename="userwindow.cpp" line="414"/>
-        <location filename="userwindow.cpp" line="513"/>
+        <location filename="userwindow.cpp" line="415"/>
+        <location filename="userwindow.cpp" line="514"/>
         <source>Cooling</source>
         <translation>Chladím</translation>
     </message>
     <message>
-        <location filename="userwindow.cpp" line="511"/>
+        <location filename="userwindow.cpp" line="512"/>
         <source>ON</source>
         <translation>Zapnutý</translation>
     </message>
     <message>
-        <location filename="userwindow.cpp" line="512"/>
+        <location filename="userwindow.cpp" line="513"/>
         <source>OFF</source>
         <translation>Vypnutý</translation>
     </message>
     <message>
-        <location filename="userwindow.cpp" line="515"/>
+        <location filename="userwindow.cpp" line="516"/>
         <source>UNKNOWN</source>
         <translation>Neznámi</translation>
     </message>
@@ -88,24 +88,37 @@
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="userwindow.cpp" line="151"/>
         <source>ACTIVE</source>
-        <translation>Aktívny</translation>
+        <translation type="obsolete">Aktívny</translation>
     </message>
     <message>
-        <location filename="userwindow.cpp" line="157"/>
         <source>INACTIVE</source>
-        <translation>Neaktívny</translation>
+        <translation type="obsolete">Neaktívny</translation>
     </message>
     <message>
-        <location filename="userwindow.cpp" line="170"/>
+        <location filename="userwindow.cpp" line="141"/>
+        <source>Switching off projector</source>
+        <translation>Vypínam projektor</translation>
+    </message>
+    <message>
+        <location filename="userwindow.cpp" line="152"/>
+        <source>Presentation: ACTIVE</source>
+        <translation>Premietanie: Zap.</translation>
+    </message>
+    <message>
+        <location filename="userwindow.cpp" line="158"/>
+        <source>Presentation: INACTIVE</source>
+        <translation>Premietanie: Vyp.</translation>
+    </message>
+    <message>
+        <location filename="userwindow.cpp" line="171"/>
         <source>Are you sure you want to power off projector?
  Press Enter to confirm, press any key to cancel</source>
         <translation>Ste si istý,že chcete vypnúť projektor?
 Stlačte Enter pre potvrdenie, alebo inú klávesu na zrušenie</translation>
     </message>
     <message>
-        <location filename="userwindow.cpp" line="234"/>
+        <location filename="userwindow.cpp" line="235"/>
         <source>Category</source>
         <translation>Kategória</translation>
     </message>

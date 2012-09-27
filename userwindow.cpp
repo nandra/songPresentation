@@ -138,9 +138,10 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 		case Qt::Key_Return:
 			/* disable projector confirmation */
 			if (m_confirmPowerOff) {
-				ui->songLabel->setText("Switching off projector");
+				ui->songLabel->setText(tr("Switching off projector"));
 				m_control->standby();
 				m_confirmPowerOff = false;
+				return;
 			}
 
 			/* display song on display dialog */
@@ -148,13 +149,13 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 				m_displayWidget->setMainText(ui->songLabel->text());
 				m_displayActive = true;
 				ui->displayActiveLabel->setStyleSheet("QLabel { color: green; font: bold;}");
-				ui->displayActiveLabel->setText(tr("ACTIVE"));
+				ui->displayActiveLabel->setText(tr("Presentation: ACTIVE"));
 			} else {
 				m_displayWidget->setMainText();
 				m_displayWidget->setTitleText();
 				m_displayActive = false;
 				ui->displayActiveLabel->setStyleSheet("QLabel { color: red; font: bold;}");
-				ui->displayActiveLabel->setText(tr("INACTIVE"));
+				ui->displayActiveLabel->setText(tr("Presentation: INACTIVE"));
 			}
 
 			break;
