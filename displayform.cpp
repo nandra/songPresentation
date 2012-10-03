@@ -51,3 +51,16 @@ void DisplayForm::setFontSize(int size)
 	ui->displayLabel->setFont(f);
 	ui->titleLabel->setFont(f);
 }
+
+void DisplayForm::removeTitle()
+{
+	ui->verticalLayout->removeWidget(ui->titleLabel);
+}
+
+void DisplayForm::addTitle()
+{
+	ui->verticalLayout->addWidget(ui->titleLabel);
+
+	ui->verticalLayout->removeWidget(ui->displayLabel);
+	ui->verticalLayout->addWidget(ui->displayLabel);
+}

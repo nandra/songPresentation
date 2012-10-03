@@ -165,6 +165,11 @@ public:
 	 * @return
 	 */
 	int fontPointSize();
+	/**
+	 * @brief removeTitle
+	 * @return
+	 */
+	bool removeTitle();
 
 private:
 	QHash<int, SongCategory> m_categories;

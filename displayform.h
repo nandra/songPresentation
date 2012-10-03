@@ -18,6 +18,8 @@ public:
 	void setMainText(const QString& text = "");
 	void setAlignment(Qt::Alignment alignment);
 	void setFontSize(int size);
+	void removeTitle();
+	void addTitle();
 
 private:
 	Ui::DisplayForm *ui;

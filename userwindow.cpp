@@ -145,6 +145,12 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 
 			/* display song on display dialog */
 			if (!m_displayActive) {
+				if (m_category->removeTitle()) {
+					m_displayWidget->removeTitle();
+				} else {
+					m_displayWidget->addTitle();
+				}
+
 				if (m_category->changeAlignment()) {
 					m_displayWidget->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
 				} else {
@@ -422,6 +428,17 @@ int Category::fontPointSize()
 
 	if (category == Category::Breviary)
 		ret = 42;
+
+	return ret;
+}
+
+bool Category::removeTitle()
+{
+	SongCategory category = m_categories.value(m_actualCategory);
+	bool ret = false;
+
+	if (category == Category::Breviary || category == Category::Psalm)
+		ret = true;
 
 	return ret;
 }
