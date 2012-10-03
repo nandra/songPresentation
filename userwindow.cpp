@@ -411,6 +411,18 @@ bool Category::changeAlignment()
 
 	return ret;
 }
+
+int Category::fontPointSize()
+{
+	SongCategory category = m_categories.value(m_actualCategory);
+	int ret = 48;
+
+	if (category == Category::Breviary)
+		ret = 42;
+
+	return ret;
+}
+
 ProjectorControl::ProjectorControl() :
 	m_state(UNKNOWN)
 {

@@ -43,3 +43,11 @@ void DisplayForm::setAlignment(Qt::Alignment alignment)
 {
 	ui->displayLabel->setAlignment(alignment);
 }
+
+void DisplayForm::setFontSize(int size)
+{
+	QFont f = ui->displayLabel->font();
+	f.setPointSize(size);
+	ui->displayLabel->setFont(f);
+	ui->titleLabel->setFont(f);
+}
