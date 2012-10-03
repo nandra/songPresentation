@@ -150,6 +150,9 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 				} else {
 					m_displayWidget->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 				}
+
+				m_displayWidget->setFontSize(m_category->fontPointSize());
+
 				m_displayWidget->setMainText(ui->songLabel->text());
 				m_displayActive = true;
 				ui->displayActiveLabel->setStyleSheet("QLabel { color: green; font: bold;}");

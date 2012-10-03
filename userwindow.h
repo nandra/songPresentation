@@ -160,6 +160,12 @@ public:
 	 */
 	bool changeAlignment();
 
+	/**
+	 * @brief fontPointSize
+	 * @return
+	 */
+	int fontPointSize();
+
 private:
 	QHash<int, SongCategory> m_categories;
 	int m_actualCategory;
