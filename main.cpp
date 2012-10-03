@@ -25,10 +25,6 @@ int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
 
-	QTranslator translator;
-	translator.load("songPresentation_sk");
-	a.installTranslator(&translator);
-
 	QString dataPath;
 	for (int i = 0; i < argc; i++ ) {
 		if (QString(argv[i]).contains("-dataPath")) {
@@ -37,6 +33,12 @@ int main(int argc, char *argv[])
 			break;
 		}
 	}
+
+	QTranslator translator;
+	if (!translator.load("songPresentation_sk.qm", dataPath))
+		qDebug() << "cannot load translator";
+
+	a.installTranslator(&translator);
 
 	DisplayForm d;
 	UserWindow w(&d, dataPath);
