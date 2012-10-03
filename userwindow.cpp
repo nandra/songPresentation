@@ -145,7 +145,11 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 
 			/* display song on display dialog */
 			if (!m_displayActive) {
-				//m_displayWidget->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+				if (m_category->changeAlignment()) {
+					m_displayWidget->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
+				} else {
+					m_displayWidget->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+				}
 				m_displayWidget->setMainText(ui->songLabel->text());
 				m_displayActive = true;
 				ui->displayActiveLabel->setStyleSheet("QLabel { color: green; font: bold;}");
@@ -397,6 +401,16 @@ bool Category::displayTitle()
 	return false;
 }
 
+bool Category::changeAlignment()
+{
+	SongCategory category = m_categories.value(m_actualCategory);
+	bool ret = false;
+
+	if (category == Category::Breviary)
+		ret = true;
+
+	return ret;
+}
 ProjectorControl::ProjectorControl() :
 	m_state(UNKNOWN)
 {

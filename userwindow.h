@@ -154,6 +154,12 @@ public:
 	 */
 	bool displayTitle();
 
+	/**
+	 * @brief alignment
+	 * @return
+	 */
+	bool changeAlignment();
+
 private:
 	QHash<int, SongCategory> m_categories;
 	int m_actualCategory;
