@@ -1,0 +1,32 @@
+From e39ab18e9e4c496322ca8423e57cf7b0540aef4d Mon Sep 17 00:00:00 2001
+From: Marek Belisko <marek.belisko@open-nandra.com>
+Date: Thu, 27 Sep 2012 21:53:48 +0200
+Subject: [PATCH 6/8] Install interface file.
+
+Signed-off-by: Marek Belisko <marek.belisko@open-nandra.com>
+---
+ board/sdb/post_build.sh |    6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+
+diff --git a/board/sdb/post_build.sh b/board/sdb/post_build.sh
+index a89c062..cac68f3 100755
+--- a/board/sdb/post_build.sh
++++ b/board/sdb/post_build.sh
+@@ -4,10 +4,12 @@ TARGETDIR=$1
+ 
+ sed -i 's%^root::%root:D/x4dDirxDcUY:%' $TARGETDIR/etc/shadow
+ 
+-# Set dhcp for eth0 by default
++# install interface file
++
++cp board/sdb/interfaces $TARGETDIR/etc/network
+ 
+-echo -e 'auto eth0 \niface eth0 inet dhcp' >> $TARGETDIR/etc/network/interfaces
+ 
+ # install Times Roman font
+ cp board/sdb/times.ttf $TARGETDIR/usr/lib/fonts
+ cp board/sdb/cambria.ttf $TARGETDIR/usr/lib/fonts
++
+-- 
+1.7.9.5
+

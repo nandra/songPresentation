@@ -1,0 +1,32 @@
+From a6b65d01880656e5a51cffa3c73ec2ffa9528e5d Mon Sep 17 00:00:00 2001
+From: Marek Belisko <marek.belisko@open-nandra.com>
+Date: Thu, 27 Sep 2012 21:54:43 +0200
+Subject: [PATCH 8/8] Add interfaces file.
+
+Signed-off-by: Marek Belisko <marek.belisko@open-nandra.com>
+---
+ board/sdb/interfaces |   12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+ create mode 100644 board/sdb/interfaces
+
+diff --git a/board/sdb/interfaces b/board/sdb/interfaces
+new file mode 100644
+index 0000000..4aaa9ce
+--- /dev/null
++++ b/board/sdb/interfaces
+@@ -0,0 +1,12 @@
++# Configure Loopback
++auto lo
++iface lo inet loopback
++
++#auto eth0
++#iface eth0 inet dhcp
++
++auto eth0
++iface eth0 inet static
++	address 169.254.100.101
++	netmask 255.255.255.0
++
+-- 
+1.7.9.5
+

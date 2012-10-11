@@ -1,0 +1,146 @@
+From 1dbc7ebac9e26eac4f8690411b6178f504a9c3ae Mon Sep 17 00:00:00 2001
+From: Marek Belisko <marek.belisko@open-nandra.com>
+Date: Tue, 11 Sep 2012 23:16:42 +0200
+Subject: [PATCH 1/8] Add songPresentation to buildroot.
+
+---
+ board/sdb/post_build.sh                            |    9 +++++
+ package/Config.in                                  |    4 ++
+ package/sdb/sdb.mk                                 |    1 +
+ package/sdb/song-presentation/Config.in            |    6 +++
+ package/sdb/song-presentation/S99songPresentation  |   39 ++++++++++++++++++++
+ package/sdb/song-presentation/song-presentation.mk |   26 +++++++++++++
+ 6 files changed, 85 insertions(+)
+ create mode 100755 board/sdb/post_build.sh
+ create mode 100644 package/sdb/sdb.mk
+ create mode 100644 package/sdb/song-presentation/Config.in
+ create mode 100644 package/sdb/song-presentation/S99songPresentation
+ create mode 100644 package/sdb/song-presentation/song-presentation.mk
+
+diff --git a/board/sdb/post_build.sh b/board/sdb/post_build.sh
+new file mode 100755
+index 0000000..3b24f59
+--- /dev/null
++++ b/board/sdb/post_build.sh
+@@ -0,0 +1,9 @@
++TARGETDIR=$1
++
++# Set root password to 'donbosco'.
++
++sed -i 's%^root::%root:D/x4dDirxDcUY:%' $TARGETDIR/etc/shadow
++
++# Set dhcp for eth0 by default
++
++echo -e 'auto eth0 \niface eth0 inet dhcp' >> $TARGETDIR/etc/network/interfaces
+diff --git a/package/Config.in b/package/Config.in
+index f308de7..241610c 100644
+--- a/package/Config.in
++++ b/package/Config.in
+@@ -696,4 +696,8 @@ source "package/vim/Config.in"
+ endif
+ endmenu
+ 
++menu "SDB project"
++source "package/sdb/song-presentation/Config.in"
++endmenu
++
+ endmenu
+diff --git a/package/sdb/sdb.mk b/package/sdb/sdb.mk
+new file mode 100644
+index 0000000..0d23585
+--- /dev/null
++++ b/package/sdb/sdb.mk
+@@ -0,0 +1 @@
++include package/sdb/*/*.mk
+diff --git a/package/sdb/song-presentation/Config.in b/package/sdb/song-presentation/Config.in
+new file mode 100644
+index 0000000..f3425fb
+--- /dev/null
++++ b/package/sdb/song-presentation/Config.in
+@@ -0,0 +1,6 @@
++config BR2_PACKAGE_SONG_PRESENTATION
++	bool "songPresentation"
++	depends on BR2_PACKAGE_QT
++	help
++	  songPresentation is simple presentation of church songs
++
+diff --git a/package/sdb/song-presentation/S99songPresentation b/package/sdb/song-presentation/S99songPresentation
+new file mode 100644
+index 0000000..99302c4
+--- /dev/null
++++ b/package/sdb/song-presentation/S99songPresentation
+@@ -0,0 +1,39 @@
++#!/bin/sh
++#
++# Starts song presentation
++#
++
++start() {
++	echo -n "Starting songPresentation: "
++	export QWS_KEYBOARD="LinuxInput:/dev/input/event0"
++       	export QWS_DISPLAY="multi: LinuxFb:/dev/fb0:0 LinuxFb:/dev/fb1:offset=656,0:1 :0"
++      	/usr/bin/songPresentation  -qws -nomouse -dataPath=/home/default/data &
++	echo "OK"
++}
++stop() {
++	echo -n "Stopping songPresentation: "
++	kill `pidof songPresentation`
++	echo "OK"
++}
++restart() {
++	stop
++	start
++}
++
++case "$1" in
++  start)
++	start
++	;;
++  stop)
++	stop
++	;;
++  restart|reload)
++	restart
++	;;
++  *)
++	echo "Usage: $0 {start|stop|restart}"
++	exit 1
++esac
++
++exit $?
++
+diff --git a/package/sdb/song-presentation/song-presentation.mk b/package/sdb/song-presentation/song-presentation.mk
+new file mode 100644
+index 0000000..e657ed0
+--- /dev/null
++++ b/package/sdb/song-presentation/song-presentation.mk
+@@ -0,0 +1,26 @@
++#############################################################
++#
++# song
++#
++#############################################################
++
++SONG_PRESENTATION_VERSION = master
++SONG_PRESENTATION_SITE    = https://github.com/nandra/songPresentation.git
++SONG_PRESENTATION_SITE_METHOD = git
++
++define SONG_PRESENTATION_CONFIGURE_CMDS
++	cd $(@D) && $(QT_QMAKE)
++endef
++
++define SONG_PRESENTATION_BUILD_CMDS
++	$(MAKE) -C $(@D)
++endef
++
++define SONG_PRESENTATION_INSTALL_TARGET_CMDS
++	install -D -m 0755 $(@D)/songPresentation $(TARGET_DIR)/usr/bin/songPresentation
++	install -D -m 0755 package/sdb/song-presentation/S99songPresentation $(TARGET_DIR)/etc/init.d/S90songPresentation
++	cp -R $(@D)/data $(TARGET_DIR)/home/default/
++endef
++
++$(eval $(generic-package))
++
+-- 
+1.7.9.5
+

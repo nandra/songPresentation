@@ -1,0 +1,3 @@
+This directory contains patches for buildroot to have possibility to build
+full rootfs for raspberry-pi with songPresentation. Patches are from Buildroot
+version 2012.08 but shouldn;t have many conflicts.

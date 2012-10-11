@@ -1,0 +1,40 @@
+From 5c8da881f02ecc1368876f8377c03dfcbef07e8b Mon Sep 17 00:00:00 2001
+From: Marek Belisko <marek.belisko@open-nandra.com>
+Date: Tue, 11 Sep 2012 22:38:20 +0200
+Subject: [PATCH 2/8] Add patch to fix problems with keyboard hang (workaround
+ only)
+
+Signed-off-by: Marek Belisko <marek.belisko@open-nandra.com>
+---
+ package/qt/qt-4.7.3-remove-ioctl.patch |   19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+ create mode 100644 package/qt/qt-4.7.3-remove-ioctl.patch
+
+diff --git a/package/qt/qt-4.7.3-remove-ioctl.patch b/package/qt/qt-4.7.3-remove-ioctl.patch
+new file mode 100644
+index 0000000..d95efbb
+--- /dev/null
++++ b/package/qt/qt-4.7.3-remove-ioctl.patch
+@@ -0,0 +1,19 @@
++--- qt-4.7.3.orig/src/gui/embedded/qkbdlinuxinput_qws.cpp	2011-03-30 07:19:04.000000000 +0200
+++++ qt-4.7.3/src/gui/embedded/qkbdlinuxinput_qws.cpp	2011-09-12 18:22:52.978846803 +0200
++@@ -127,7 +127,7 @@
++ 
++         // play nice in case we are started from a shell (e.g. for debugging)
++         m_tty_fd = isatty(0) ? 0 : -1;
++-
+++#if 0
++         if (m_tty_fd >= 0) {
++             // save tty config for restore.
++             tcgetattr(m_tty_fd, &m_tty_attr);
++@@ -154,6 +154,7 @@
++             cfsetospeed(&termdata, 9600);
++             tcsetattr(m_tty_fd, TCSANOW, &termdata);
++         }
+++#endif
++     } else {
++         qWarning("Cannot open keyboard input device '%s': %s", qPrintable(dev), strerror(errno));
++         return;
+-- 
+1.7.9.5
+

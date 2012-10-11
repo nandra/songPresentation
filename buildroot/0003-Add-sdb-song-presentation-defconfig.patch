@@ -1,0 +1,40 @@
+From 30e93e48085ca3d787e8cdb989127a3f25254a5d Mon Sep 17 00:00:00 2001
+From: Marek Belisko <marek.belisko@gmail.com>
+Date: Wed, 5 Sep 2012 15:54:29 +0200
+Subject: [PATCH 3/8] Add sdb song-presentation defconfig.
+
+---
+ configs/sdb_defconfig |   21 +++++++++++++++++++++
+ 1 file changed, 21 insertions(+)
+ create mode 100644 configs/sdb_defconfig
+
+diff --git a/configs/sdb_defconfig b/configs/sdb_defconfig
+new file mode 100644
+index 0000000..732459a
+--- /dev/null
++++ b/configs/sdb_defconfig
+@@ -0,0 +1,21 @@
++BR2_arm=y
++BR2_arm1176jzf_s=y
++BR2_TOOLCHAIN_EXTERNAL=y
++BR2_ROOTFS_DEVICE_CREATION_DYNAMIC_UDEV=y
++BR2_TARGET_GENERIC_GETTY_PORT="tty1"
++BR2_ROOTFS_POST_BUILD_SCRIPT="board/sdb/post_build.sh"
++BR2_PACKAGE_QT=y
++BR2_PACKAGE_QT_LICENSE_APPROVED=y
++BR2_PACKAGE_QT_FONT_UNIFONT=y
++BR2_PACKAGE_QT_SYSTEMFREETYPE=y
++BR2_PACKAGE_QT_SYSTEMJPEG=y
++BR2_PACKAGE_QT_SYSTEMPNG=y
++BR2_PACKAGE_QT_SYSTEMTIFF=y
++BR2_PACKAGE_QT_GFX_TRANSFORMED=y
++BR2_PACKAGE_QT_GFX_MULTISCREEN=y
++BR2_PACKAGE_QT_KEYBOARD_LINUXINPUT=y
++# BR2_PACKAGE_QT_XML is not set
++# BR2_PACKAGE_QT_SCRIPT is not set
++BR2_PACKAGE_DROPBEAR=y
++BR2_PACKAGE_SONG_PRESENTATION=y
++BR2_TARGET_ROOTFS_TAR_GZIP=y
+-- 
+1.7.9.5
+

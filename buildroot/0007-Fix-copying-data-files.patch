@@ -1,0 +1,26 @@
+From 80a2c4862181bf177ab00c37184fe81385848950 Mon Sep 17 00:00:00 2001
+From: Marek Belisko <marek.belisko@open-nandra.com>
+Date: Thu, 27 Sep 2012 21:53:59 +0200
+Subject: [PATCH 7/8] Fix copying data files.
+
+Signed-off-by: Marek Belisko <marek.belisko@open-nandra.com>
+---
+ package/sdb/song-presentation/song-presentation.mk |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/package/sdb/song-presentation/song-presentation.mk b/package/sdb/song-presentation/song-presentation.mk
+index e657ed0..521ce89 100644
+--- a/package/sdb/song-presentation/song-presentation.mk
++++ b/package/sdb/song-presentation/song-presentation.mk
+@@ -19,7 +19,7 @@ endef
+ define SONG_PRESENTATION_INSTALL_TARGET_CMDS
+ 	install -D -m 0755 $(@D)/songPresentation $(TARGET_DIR)/usr/bin/songPresentation
+ 	install -D -m 0755 package/sdb/song-presentation/S99songPresentation $(TARGET_DIR)/etc/init.d/S90songPresentation
+-	cp -R $(@D)/data $(TARGET_DIR)/home/default/
++	cp -rf $(@D)/data $(TARGET_DIR)/home/default/
+ endef
+ 
+ $(eval $(generic-package))
+-- 
+1.7.9.5
+
