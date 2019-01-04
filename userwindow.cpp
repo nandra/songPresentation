@@ -340,7 +340,7 @@ QString FileWorker::prevVerse()
 	if (--pos < 1)
 		return ret;
 
-		pos -= 1;
+	pos -= 1;
 
 	m_actualVerse --;
 
