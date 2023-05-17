@@ -26,12 +26,16 @@ int main(int argc, char *argv[])
 	QApplication a(argc, argv);
 
 	QString dataPath;
+    bool projectorHandler = true;
 	for (int i = 0; i < argc; i++ ) {
 		if (QString(argv[i]).contains("-dataPath")) {
 			dataPath = QString(argv[i]).mid(strlen("-dataPath="));
 			qDebug() << "Data path:" << dataPath;
 			break;
-		}
+        } else if (QString(argv[i]).contains("-disableProjectorHandler")) {
+            qDebug() << "Projector handler disabled\n";
+            projectorHandler = false;
+        }
 	}
 
 	QTranslator translator;
@@ -41,14 +45,15 @@ int main(int argc, char *argv[])
 	a.installTranslator(&translator);
 
 	DisplayForm d;
-	UserWindow w(&d, dataPath);
+    UserWindow w(&d, dataPath, projectorHandler);
 
 	QDesktopWidget *desktop = QApplication::desktop();
 	QRect rect = desktop->screenGeometry(0);
 	d.move(rect.width(), 0);
 
-	d.showMaximized();
-	w.showFullScreen();
-
+    d.showMaximized();
+   // d.show();
+    w.show();
+    // w.showFullScreen();
 	return a.exec();
 }

@@ -45,7 +45,7 @@ class UserWindow : public QMainWindow
 	Q_OBJECT
 
 public:
-	explicit UserWindow(DisplayForm *display, const QString& dataPath, QWidget *parent = 0);
+    explicit UserWindow(DisplayForm *display, const QString& dataPath, bool projectorHandler, QWidget *parent = 0);
 	~UserWindow();
 
 private:
@@ -185,7 +185,7 @@ signals:
 class ProjectorControl : public QObject {
 	Q_OBJECT
 public:
-	ProjectorControl();
+    ProjectorControl(bool);
 
 	enum ProjectorState {
 		ON = 0,

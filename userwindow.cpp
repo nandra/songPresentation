@@ -30,7 +30,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 
-UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, QWidget *parent) :
+UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, bool projectorHandler, QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::UserWindow),
 	m_songSearchTimer(new QTimer(this)),
@@ -60,9 +60,14 @@ UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, QWidget *p
 	connect(m_category, SIGNAL(changed()), this, SLOT(categoryChanged()));
 
 	/* projector control handling */
-	m_control = new ProjectorControl();
-	connect(m_control, SIGNAL(stateChanged(QString)), this, SLOT(control_stateChanged(QString)));
-	m_control->periodicStateCheck();
+    if (projectorHandler) {
+        m_control = new ProjectorControl(projectorHandler);
+        connect(m_control, SIGNAL(stateChanged(QString)), this, SLOT(control_stateChanged(QString)));
+        m_control->periodicStateCheck();
+    } else {
+
+    }
+
 }
 
 UserWindow::~UserWindow()
@@ -259,7 +264,6 @@ void UserWindow::control_stateChanged(const QString& state)
 }
 
 /** FileWorker class implementation */
-
 FileWorker::FileWorker(QObject *parent) :
 	QObject(parent),
 	m_file(NULL),
@@ -289,9 +293,9 @@ void FileWorker::cacheContent()
 	m_file = new QFile(m_fileName);
 
 	/* Don't chek for open up is check if file exist */
-	m_file->open(QIODevice::ReadOnly | QIODevice::Text);
+    m_file->open(QIODevice::ReadOnly | QIODevice::Text);
 
-
+    /* Cache content of file and count number of verses */
 	QTextStream stream(m_file);
 	QTextCodec *codec = QTextCodec::codecForName("UTF-8");
 	stream.setCodec(codec);
@@ -312,7 +316,7 @@ void FileWorker::cacheContent()
 		verse.append(line + "\n");
 		lineNumber ++;
 
-	} while (!line.isNull());
+    } while (!stream.atEnd());
 }
 
 QString FileWorker::nextVerse()
@@ -443,9 +447,13 @@ bool Category::removeTitle()
 	return ret;
 }
 
-ProjectorControl::ProjectorControl() :
+ProjectorControl::ProjectorControl(bool enabled) :
 	m_state(UNKNOWN)
 {
+    // for some projects we don't need control
+    if (!enabled) {
+        return;
+    }
 	m_checkTimer = new QTimer();
 	connect(m_checkTimer, SIGNAL(timeout()), this, SLOT(on_checkTimer_timeout()));
 
