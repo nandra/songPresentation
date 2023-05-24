@@ -19,6 +19,7 @@
 #define USERWINDOW_H
 
 #include "displayform.h"
+#include "language_selector.h"
 
 #include <QMainWindow>
 #include <QTimer>
@@ -29,6 +30,8 @@
 #include <QHash>
 #include <QDebug>
 #include <QNetworkAccessManager>
+#include <QDialog>
+#include  <QTranslator>
 
 namespace Ui {
 class UserWindow;
@@ -45,7 +48,7 @@ class UserWindow : public QMainWindow
 	Q_OBJECT
 
 public:
-    explicit UserWindow(DisplayForm *display, const QString& dataPath, bool projectorHandler, QWidget *parent = 0);
+    explicit UserWindow(DisplayForm *display, const QString& dataPath, bool projectorHandler, LanguageDialog *language_dialog, QWidget *parent = 0);
 	~UserWindow();
 
 private:
@@ -60,7 +63,9 @@ private:
 	QString m_dataPath;
 	ProjectorControl *m_control;
 	bool m_confirmPowerOff;
-
+    LanguageDialog *m_language_dialog;
+    QTranslator *m_translator;
+    bool m_projectorHandler;
 private:
 	void keyPressEvent(QKeyEvent *ev);
 	QString absoluteDataPath(const QString &songNumber);
@@ -69,6 +74,7 @@ private slots:
 	void songSearchTimer_timeout();
 	void categoryChanged();
 	void control_stateChanged(const QString &state);
+    void languageChanged(const QString &lang);
 };
 
 class FileWorker : public QObject {

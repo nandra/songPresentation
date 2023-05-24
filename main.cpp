@@ -20,6 +20,7 @@
 #include <QTranslator>
 #include "userwindow.h"
 #include "displayform.h"
+#include "language_selector.h"
 
 int main(int argc, char *argv[])
 {
@@ -38,22 +39,28 @@ int main(int argc, char *argv[])
         }
 	}
 
+
+
+
 	QTranslator translator;
-	if (!translator.load("songPresentation_sk.qm", dataPath))
+    if (!translator.load("songPresentation_sk.qm", dataPath + "/" + "SK"))
 		qDebug() << "cannot load translator";
 
 	a.installTranslator(&translator);
 
-	DisplayForm d;
-    UserWindow w(&d, dataPath, projectorHandler);
+    LanguageDialog l;
+
+    DisplayForm d;
+
+    UserWindow w(&d, dataPath, projectorHandler, &l);
 
 	QDesktopWidget *desktop = QApplication::desktop();
 	QRect rect = desktop->screenGeometry(0);
 	d.move(rect.width(), 0);
 
+    // first show language dialog
+    //l.showFullScreen();
     d.showMaximized();
-   // d.show();
-    w.show();
-    // w.showFullScreen();
+    w.showFullScreen();
 	return a.exec();
 }

@@ -12,12 +12,18 @@ TRANSLATIONS = songPresentation_sk.ts
 
 SOURCES += main.cpp\
 		userwindow.cpp \
-	displayform.cpp
+	displayform.cpp \
+    language_selector.cpp
 
 HEADERS  += userwindow.h \
-	displayform.h
+	displayform.h \
+    language_selector.h
 
 
 FORMS    += userwindow.ui \
-	displayform.ui
+	displayform.ui \
+    language_dialog.ui
+
+RESOURCES += \
+    images.qrc
 

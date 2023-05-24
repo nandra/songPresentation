@@ -30,7 +30,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 
-UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, bool projectorHandler, QWidget *parent) :
+UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, bool projectorHandler, LanguageDialog *language_dialog, QTranslator *translator, QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::UserWindow),
 	m_songSearchTimer(new QTimer(this)),
@@ -39,10 +39,15 @@ UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, bool proje
 	m_displayWidget(display),
 	m_displayActive(false),
 	m_category(new Category()),
-	m_dataPath(dataPath),
-	m_confirmPowerOff(false)
+    m_dataPath(dataPath),
+    m_confirmPowerOff(false),
+    m_language_dialog(language_dialog),
+    m_projectorHandler(projectorHandler),
+    m_translator(translator)
 {
-	ui->setupUi(this);
+
+
+    ui->setupUi(this);
 
 	connect(m_songSearchTimer, SIGNAL(timeout()), this, SLOT(songSearchTimer_timeout()));
 
@@ -67,12 +72,18 @@ UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, bool proje
     } else {
 
     }
-
+    /* connect on categoty change */
+    connect(m_language_dialog, SIGNAL(on_language_changed(const QString&)), this, SLOT(languageChanged(const QString&)));
 }
 
 UserWindow::~UserWindow()
 {
 	delete ui;
+}
+
+void UserWindow::languageChanged(const QString &lang)
+{
+    qDebug() << "Language updated to:" << lang << "\n";
 }
 
 void UserWindow::keyPressEvent(QKeyEvent *ev)
@@ -182,15 +193,24 @@ void UserWindow::keyPressEvent(QKeyEvent *ev)
 			qDebug() << m_category->categoryNameByPath();
 			break;
 		case Qt::Key_Slash:
+            qDebug() << "Slash key\n";
 			/* projector enabled => standby */
-			if (m_control->status() == ProjectorControl::ON) {
-				/* wait for confirmation */
-				m_confirmPowerOff = true;
-				ui->songLabel->setText(tr("Are you sure you want to power off projector?\n " \
-					"Press Enter to confirm, press any key to cancel"));
-			} else if (m_control->status() == ProjectorControl::OFF) {
-				m_control->powerOn();
-			}
+            if (m_projectorHandler) {
+                if (m_control->status() == ProjectorControl::ON) {
+                    /* wait for confirmation */
+                    m_confirmPowerOff = true;
+                    ui->songLabel->setText(tr("Are you sure you want to power off projector?\n " \
+                        "Press Enter to confirm, press any key to cancel"));
+                } else if (m_control->status() == ProjectorControl::OFF) {
+                    m_control->powerOn();
+                }
+            } else {
+                qDebug() << "Show language dialog\n";
+                // use for language selsction
+                m_language_dialog->move(x() + (width() - m_language_dialog->width()) / 2,
+                             y() + (height() - m_language_dialog->height()) / 2);
+                m_language_dialog->show();
+            }
 			break;
 		case Qt::Key_Backspace:
 			/* clean last added number when song is not active */
@@ -255,7 +275,7 @@ void UserWindow::categoryChanged()
 
 QString UserWindow::absoluteDataPath(const QString& songNumber)
 {
-	return m_dataPath + "/" + m_category->categoryNameByPath() + "/" + songNumber + ".txt";
+    return m_dataPath + "/" + m_language_dialog->language() + "/" + m_category->categoryNameByPath() + "/" + songNumber + ".txt";
 }
 
 void UserWindow::control_stateChanged(const QString& state)
