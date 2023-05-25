@@ -31,7 +31,6 @@
 #include <QDebug>
 #include <QNetworkAccessManager>
 #include <QDialog>
-#include  <QTranslator>
 
 namespace Ui {
 class UserWindow;
@@ -64,10 +63,10 @@ private:
 	ProjectorControl *m_control;
 	bool m_confirmPowerOff;
     LanguageDialog *m_language_dialog;
-    QTranslator *m_translator;
-    bool m_projectorHandler;
+        bool m_projectorHandler;
 private:
 	void keyPressEvent(QKeyEvent *ev);
+    void changeEvent(QEvent*);
 	QString absoluteDataPath(const QString &songNumber);
 
 private slots:

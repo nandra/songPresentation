@@ -30,7 +30,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 
-UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, bool projectorHandler, LanguageDialog *language_dialog, QTranslator *translator, QWidget *parent) :
+UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, bool projectorHandler, LanguageDialog *language_dialog, QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::UserWindow),
 	m_songSearchTimer(new QTimer(this)),
@@ -42,12 +42,10 @@ UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, bool proje
     m_dataPath(dataPath),
     m_confirmPowerOff(false),
     m_language_dialog(language_dialog),
-    m_projectorHandler(projectorHandler),
-    m_translator(translator)
+    m_projectorHandler(projectorHandler)
 {
-
-
     ui->setupUi(this);
+    ui->retranslateUi(this);
 
 	connect(m_songSearchTimer, SIGNAL(timeout()), this, SLOT(songSearchTimer_timeout()));
 
@@ -73,12 +71,22 @@ UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, bool proje
 
     }
     /* connect on categoty change */
-    connect(m_language_dialog, SIGNAL(on_language_changed(const QString&)), this, SLOT(languageChanged(const QString&)));
+    connect(m_language_dialog, SIGNAL(language_changed(const QString)), this, SLOT(languageChanged(const QString)));
 }
 
 UserWindow::~UserWindow()
 {
 	delete ui;
+}
+
+void UserWindow::changeEvent(QEvent *event)
+{
+    qDebug() << "Change event" << event->type() << "\n";
+    if(event->type() == QEvent::LanguageChange)
+    {
+      ui->retranslateUi(this);
+       // retranslate();
+    }
 }
 
 void UserWindow::languageChanged(const QString &lang)

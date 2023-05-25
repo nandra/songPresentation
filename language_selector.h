@@ -28,7 +28,7 @@ private:
   void keyPressEvent(QKeyEvent *ev);
 
 signals:
-  void on_language_changed(const QString);
+  void language_changed(const QString&);
 
 private:
     Ui::Dialog *ui;

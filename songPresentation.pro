@@ -13,11 +13,13 @@ TRANSLATIONS = songPresentation_sk.ts
 SOURCES += main.cpp\
 		userwindow.cpp \
 	displayform.cpp \
-    language_selector.cpp
+    language_selector.cpp \
+    translatorhandler.cpp
 
 HEADERS  += userwindow.h \
 	displayform.h \
-    language_selector.h
+    language_selector.h \
+    translatorhandler.h
 
 
 FORMS    += userwindow.ui \

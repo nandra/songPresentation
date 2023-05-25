@@ -21,10 +21,11 @@
 #include "userwindow.h"
 #include "displayform.h"
 #include "language_selector.h"
+#include "translatorhandler.h"
 
 int main(int argc, char *argv[])
 {
-	QApplication a(argc, argv);
+    QApplication a(argc, argv);
 
 	QString dataPath;
     bool projectorHandler = true;
@@ -39,15 +40,9 @@ int main(int argc, char *argv[])
         }
 	}
 
+    TranslatorHandler h =  TranslatorHandler(dataPath, "SK");
 
-
-
-	QTranslator translator;
-    if (!translator.load("songPresentation_sk.qm", dataPath + "/" + "SK"))
-		qDebug() << "cannot load translator";
-
-	a.installTranslator(&translator);
-
+    a.installTranslator(h.translator());
     LanguageDialog l;
 
     DisplayForm d;
@@ -62,5 +57,5 @@ int main(int argc, char *argv[])
     //l.showFullScreen();
     d.showMaximized();
     w.showFullScreen();
-	return a.exec();
+    return a.exec();
 }

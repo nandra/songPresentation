@@ -42,7 +42,7 @@ void LanguageDialog::keyPressEvent(QKeyEvent *ev)
     switch (ev->key()) {
     case Qt::Key_Enter:
         // confirm language change
-        emit on_language_changed(m_languageText);
+        emit language_changed(m_languageText);
         this->hide();
         break;
     }
