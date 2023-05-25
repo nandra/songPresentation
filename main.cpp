@@ -21,7 +21,8 @@
 #include "userwindow.h"
 #include "displayform.h"
 #include "language_selector.h"
-#include "translatorhandler.h"
+//#include "translatorhandler.h"
+#include "translator.h"
 
 int main(int argc, char *argv[])
 {
@@ -40,10 +41,14 @@ int main(int argc, char *argv[])
         }
 	}
 
-    TranslatorHandler h =  TranslatorHandler(dataPath, "SK");
+    //TranslatorHandler h(dataPath, "SK");
+    translator h(dataPath, "SK");
 
-    a.installTranslator(h.translator());
+    a.installTranslator(h.langTranslator());
+
     LanguageDialog l;
+
+    a.connect(&l, SIGNAL(language_changed(QString)), &h, SLOT(on_language_change(QString)));
 
     DisplayForm d;
 

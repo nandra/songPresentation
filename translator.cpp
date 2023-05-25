@@ -1,11 +1,9 @@
-#include "translatorhandler.h"
-
-#include <QTranslator>
+#include "translator.h"
 #include <QDebug>
-#include <QApplication>
 
-TranslatorHandler::TranslatorHandler(const QString& dataPath, const QString& language)
+translator::translator(const QString dataPath, const QString language)
 {
+
     m_translator = new QTranslator();
     //QTranslator translator;
     //qDebug() << "Called << "songPresentation_" + language.toLower() + ".qm" << "\n";
@@ -15,11 +13,9 @@ TranslatorHandler::TranslatorHandler(const QString& dataPath, const QString& lan
 
     qDebug() << "TRanslator empty:" << m_translator->isEmpty();
 
-    //a->installTranslator(m_translator);
-
 }
 
-QTranslator* TranslatorHandler::translator()
+void translator::on_language_change(QString lang)
 {
-    return m_translator;
+    qDebug() << "Translator:" << lang;
 }

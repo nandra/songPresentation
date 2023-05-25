@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-<TS version="2.0" language="sk_SK">
+<TS version="2.0" language="hu_HU">
 <context>
     <name>Category</name>
     <message>
         <location filename="userwindow.cpp" line="426"/>
         <source>JKS</source>
-        <translation>JKS</translation>
+        <translation type="unfinished">JKS</translation>
     </message>
     <message>
         <location filename="userwindow.cpp" line="427"/>
         <source>Psalm</source>
-        <translation>Žalmy</translation>
+        <translation>Zsoltárok</translation>
     </message>
     <message>
         <location filename="userwindow.cpp" line="428"/>
         <source>Breviary</source>
-        <translation>Breviár</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="userwindow.cpp" line="429"/>
         <source>Youth</source>
-        <translation>Mládežnícke</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="userwindow.cpp" line="430"/>
         <source>Other</source>
-        <translation>Ostatné</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -34,13 +34,13 @@
     <message>
         <location filename="language_dialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="language_dialog.ui" line="34"/>
         <location filename="language_dialog.ui" line="46"/>
         <source>TextLabel</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -48,7 +48,7 @@
     <message>
         <location filename="displayform.ui" line="14"/>
         <source>Form</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -56,17 +56,17 @@
     <message>
         <location filename="language_selector.cpp" line="18"/>
         <source>Slovak</source>
-        <translation>Slovenský</translation>
+        <translation>Szlovák</translation>
     </message>
     <message>
         <location filename="language_selector.cpp" line="18"/>
         <source>Magyar</source>
-        <translation>Maďarský</translation>
+        <translation>Magyar</translation>
     </message>
     <message>
         <location filename="language_selector.cpp" line="19"/>
         <source>Select language and confirm by Enter.</source>
-        <translation>Vyberte jazyk  pomocou čísla a potvrďte klávesou Enter.</translation>
+        <translation>Válassza ki a nyelvet, és erősítse meg az Enter gombbal</translation>
     </message>
 </context>
 <context>
@@ -75,28 +75,28 @@
         <location filename="userwindow.cpp" line="501"/>
         <location filename="userwindow.cpp" line="607"/>
         <source>Starting</source>
-        <translation>Štartujem</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="userwindow.cpp" line="507"/>
         <location filename="userwindow.cpp" line="606"/>
         <source>Cooling</source>
-        <translation>Vypínam</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="userwindow.cpp" line="604"/>
         <source>ON</source>
-        <translation>Zapnutý</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="userwindow.cpp" line="605"/>
         <source>OFF</source>
-        <translation>Vypnutý</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="userwindow.cpp" line="608"/>
         <source>UNKNOWN</source>
-        <translation>Neznámi</translation>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -104,7 +104,7 @@
     <message>
         <location filename="userwindow.ui" line="14"/>
         <source>UserWindow</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="userwindow.ui" line="26"/>
@@ -112,41 +112,28 @@
         <location filename="userwindow.ui" line="64"/>
         <location filename="userwindow.ui" line="82"/>
         <source>TextLabel</source>
-        <translation></translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="userwindow.ui" line="118"/>
         <source>Number</source>
-        <translation></translation>
-    </message>
-    <message>
-        <source>ACTIVE</source>
-        <translation type="obsolete">Aktívny</translation>
-    </message>
-    <message>
-        <source>INACTIVE</source>
-        <translation type="obsolete">Neaktívny</translation>
-    </message>
-    <message>
-        <source>Switching off projector</source>
-        <translation type="obsolete">Vypínam projektor</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="userwindow.cpp" line="189"/>
         <source>Presentation: ACTIVE</source>
-        <translation>Premietanie: Zap.</translation>
+        <translation>Szűrés: Aktív</translation>
     </message>
     <message>
         <location filename="userwindow.cpp" line="195"/>
         <source>Presentation: INACTIVE</source>
-        <translation>Premietanie: Vyp.</translation>
+        <translation>Szűrés: Inaktív</translation>
     </message>
     <message>
         <location filename="userwindow.cpp" line="210"/>
         <source>Are you sure you want to power off projector?
  Press Enter to confirm, press any key to cancel</source>
-        <translation>Ste si istý,že chcete vypnúť projektor?
-Stlačte Enter pre potvrdenie, alebo inú klávesu na zrušenie</translation>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="userwindow.cpp" line="281"/>
