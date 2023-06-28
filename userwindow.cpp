@@ -30,6 +30,8 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 
+
+
 UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, bool projectorHandler, LanguageDialog *language_dialog, QWidget *parent) :
 	QMainWindow(parent),
 	ui(new Ui::UserWindow),
@@ -49,16 +51,7 @@ UserWindow::UserWindow(DisplayForm *display, const QString& dataPath, bool proje
 
 	connect(m_songSearchTimer, SIGNAL(timeout()), this, SLOT(songSearchTimer_timeout()));
 
-	/* clear labels */
-	ui->songLabel->clear();
-	ui->songLabel->setWordWrap(true);
-	ui->songNumberLabel->clear();
-	ui->categoryLabel->clear();
-	ui->projectorStateLabel->clear();
-	ui->displayActiveLabel->clear();
-
-	/* default category text */
-	categoryChanged();
+    defaultUI();
 	/* connect on categoty change */
 	connect(m_category, SIGNAL(changed()), this, SLOT(categoryChanged()));
 
@@ -79,14 +72,34 @@ UserWindow::~UserWindow()
 	delete ui;
 }
 
+void UserWindow::defaultUI()
+{
+    /* clear labels */
+    ui->songLabel->clear();
+    ui->songLabel->setWordWrap(true);
+    ui->songNumberLabel->clear();
+    ui->categoryLabel->clear();
+    ui->projectorStateLabel->clear();
+    ui->displayActiveLabel->clear();
+
+    /* default category text */
+    categoryChanged();
+}
+
 void UserWindow::changeEvent(QEvent *event)
 {
-    qDebug() << "Change event" << event->type() << "\n";
+    //qDebug() << "Change event" << event->type() << "\n";
     if(event->type() == QEvent::LanguageChange)
     {
+
+      //ui->setupUi(this);
       ui->retranslateUi(this);
-       // retranslate();
+      ui->categoryLabel->clear();
+      //categoryChanged();
+      defaultUI();
+      //ui->categoryLabel->setText(tr("Category") + ":" + m_category->categoryName());
     }
+    QWidget::changeEvent(event);
 }
 
 void UserWindow::languageChanged(const QString &lang)

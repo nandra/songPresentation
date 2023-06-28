@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 		if (QString(argv[i]).contains("-dataPath")) {
 			dataPath = QString(argv[i]).mid(strlen("-dataPath="));
 			qDebug() << "Data path:" << dataPath;
-			break;
+            //break;
         } else if (QString(argv[i]).contains("-disableProjectorHandler")) {
             qDebug() << "Projector handler disabled\n";
             projectorHandler = false;
@@ -42,9 +42,9 @@ int main(int argc, char *argv[])
 	}
 
     //TranslatorHandler h(dataPath, "SK");
-    translator h(dataPath, "SK");
+    translator h(dataPath, "SK", &a);
 
-    a.installTranslator(h.langTranslator());
+    //a.installTranslator(h.langTranslator());
 
     LanguageDialog l;
 
@@ -60,7 +60,9 @@ int main(int argc, char *argv[])
 
     // first show language dialog
     //l.showFullScreen();
-    d.showMaximized();
-    w.showFullScreen();
+    //d.showMaximized();
+    d.show();
+    w.show();
+    //w.showFullScreen();
     return a.exec();
 }

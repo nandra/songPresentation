@@ -68,6 +68,7 @@ private:
 	void keyPressEvent(QKeyEvent *ev);
     void changeEvent(QEvent*);
 	QString absoluteDataPath(const QString &songNumber);
+    void defaultUI();
 
 private slots:
 	void songSearchTimer_timeout();

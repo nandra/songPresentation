@@ -24,6 +24,21 @@ LanguageDialog::~LanguageDialog()
     delete ui;
 }
 
+void LanguageDialog::changeEvent(QEvent *event)
+{
+    qDebug() << "Change event" << event->type() << "\n";
+    if(event->type() == QEvent::LanguageChange)
+    {
+
+      ui->retranslateUi(this);
+      ui->lang_label->setText("\t1. " + tr("Slovak")+"\n\n\t2. " + tr("Magyar") + "\n");
+      ui->lang_label_help->setText(tr("Select language and confirm by Enter."));
+
+    }
+    QWidget::changeEvent(event);
+}
+
+
 void LanguageDialog::keyPressEvent(QKeyEvent *ev)
 {
     if (ev->key() >= Qt::Key_0 && ev->key() <= Qt::Key_9) {

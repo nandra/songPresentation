@@ -26,6 +26,7 @@ public:
     }
 private:
   void keyPressEvent(QKeyEvent *ev);
+  void changeEvent(QEvent *event);
 
 signals:
   void language_changed(const QString&);
