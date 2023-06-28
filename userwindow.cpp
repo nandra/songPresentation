@@ -402,9 +402,12 @@ Category::Category(QObject *parent) :
 {
 	m_categories.insert(0, Category::JKS);
 	m_categories.insert(1, Category::Psalm);
-	m_categories.insert(2, Category::Breviary);
-	m_categories.insert(3, Category::Youth);
-	m_categories.insert(4, Category::Other);
+    m_categories.insert(2, Category::Choir);
+    m_categories.insert(3, Category::Taize);
+    m_categories.insert(4, Category::Kids);
+    m_categories.insert(5, Category::Youth);
+    m_categories.insert(6, Category::Breviary);
+    m_categories.insert(7, Category::Other);
 }
 
 Category::SongCategory Category::nextCategory()
@@ -428,6 +431,9 @@ const QString Category::categoryNameByPath()
 	if (category == Category::Breviary) return "Breviary";
 	if (category == Category::Youth) return "Youth";
 	if (category == Category::Other) return "Other";
+    if (category == Category::Choir) return "Choir";
+    if (category == Category::Taize) return "Taize";
+    if (category == Category::Kids) return "Kids";
 
 	return "";
 }
@@ -441,6 +447,9 @@ const QString Category::categoryName()
 	if (category == Category::Breviary) return tr("Breviary");
 	if (category == Category::Youth) return tr("Youth");
 	if (category == Category::Other) return tr("Other");
+    if (category == Category::Choir) return tr("Choir");
+    if (category == Category::Taize) return tr("Taize");
+    if (category == Category::Kids) return tr("Kids");
 
 	return "";
 }

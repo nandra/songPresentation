@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/languages">
+        <file>songPresentation_hu.qm</file>
+        <file>songPresentation_sk.qm</file>
+    </qresource>
+</RCC>

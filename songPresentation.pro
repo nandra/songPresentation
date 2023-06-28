@@ -8,7 +8,7 @@ QT       += core gui network
 
 TARGET = songPresentation
 TEMPLATE = app
-TRANSLATIONS = songPresentation_sk.ts
+TRANSLATIONS = songPresentation_sk.ts songPresentation_hu.ts
 
 SOURCES += main.cpp\
 		userwindow.cpp \
@@ -27,5 +27,6 @@ FORMS    += userwindow.ui \
     language_dialog.ui
 
 RESOURCES += \
-    images.qrc
+    languages.qrc \
+    languages.qrc
 

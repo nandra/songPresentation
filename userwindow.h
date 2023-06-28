@@ -129,8 +129,11 @@ public:
 	enum SongCategory {
 		JKS = 0,
 		Psalm,
+        Choir,
+        Taize,
+        Kids,
+        Youth,
 		Breviary,
-		Youth,
 		Other,
 	};
 

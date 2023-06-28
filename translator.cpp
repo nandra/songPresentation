@@ -11,7 +11,7 @@ translator::translator(const QString dataPath, const QString language, QApplicat
     //QTranslator translator;
     //qDebug() << "Called << "songPresentation_" + language.toLower() + ".qm" << "\n";
     qDebug() << dataPath + "/SK/\n";
-    if (!m_translator->load("songPresentation_sk.qm", dataPath + "/SK/"))
+    if (!m_translator->load(":/languages/songPresentation_sk.qm"))
         qDebug() << "cannot load translator";
 
     qDebug() << "TRanslator empty:" << m_translator->isEmpty();
@@ -32,7 +32,7 @@ void translator::on_language_change(QString lang)
     //QTranslator translator;
     //qDebug() << "Called << "songPresentation_" + language.toLower() + ".qm" << "\n";
     qDebug() << m_dataPath + "/"+lang;
-    if (!m_translator->load("songPresentation_"+lang.toLower()+".qm", m_dataPath + "/"+lang+"/"))
+    if (!m_translator->load(":/languages/songPresentation_"+lang.toLower()+".qm"))
         qDebug() << "cannot load translator";
 
     qDebug() << "TRanslator empty:" << m_translator->isEmpty();

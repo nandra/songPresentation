@@ -60,9 +60,9 @@ int main(int argc, char *argv[])
 
     // first show language dialog
     //l.showFullScreen();
-    //d.showMaximized();
-    d.show();
-    w.show();
-    //w.showFullScreen();
+    d.showFullScreen();
+    //d.show();
+    //w.show();
+    w.showFullScreen();
     return a.exec();
 }
