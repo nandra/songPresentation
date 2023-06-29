@@ -14,12 +14,14 @@ SOURCES += main.cpp\
 		userwindow.cpp \
 	displayform.cpp \
     language_selector.cpp \
-    translator.cpp
+    translator.cpp \
+    dynamicfontsizelabel.cpp
 
 HEADERS  += userwindow.h \
 	displayform.h \
     language_selector.h \
-    translator.h
+    translator.h \
+    dynamicfontsizelabel.h
 
 
 FORMS    += userwindow.ui \
