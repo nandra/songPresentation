@@ -12,10 +12,12 @@ TRANSLATIONS = songPresentation_sk.ts
 
 SOURCES += main.cpp\
 		userwindow.cpp \
-	displayform.cpp
+        displayform.cpp \
+    dynamicfontsizelabel.cpp
 
 HEADERS  += userwindow.h \
-	displayform.h
+	displayform.h \
+    dynamicfontsizelabel.h
 
 
 FORMS    += userwindow.ui \
