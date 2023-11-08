@@ -3,3 +3,4 @@ moc_*
 *.o
 Makefile
 ui_*
+songPresentation
