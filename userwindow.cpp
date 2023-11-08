@@ -312,7 +312,7 @@ void FileWorker::cacheContent()
 		verse.append(line + "\n");
 		lineNumber ++;
 
-	} while (!line.isNull());
+    } while (!stream.atEnd());
 }
 
 QString FileWorker::nextVerse()
