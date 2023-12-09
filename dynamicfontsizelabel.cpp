@@ -23,6 +23,10 @@ void DynamicFontSizeLabel::paintEvent(QPaintEvent *event)
 
     QFont newFont = font();
     float fontSize = getWidgetMaximumFontSize(this, this->text());
+    // limit font size to max 48
+    if (fontSize > 48) {
+        fontSize = 48;
+    }
     newFont.setPointSizeF(fontSize);
     setFont(newFont);
     //qDebug() << "Font size set to" << fontSize;
